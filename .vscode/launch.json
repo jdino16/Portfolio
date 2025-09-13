@@ -2,25 +2,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Start Portfolio Server",
+            "name": "Launch Portfolio Server",
             "type": "node",
             "request": "launch",
             "program": "${workspaceFolder}/server.js",
             "console": "integratedTerminal",
-            "restart": true,
             "env": {
                 "NODE_ENV": "development"
-            }
-        },
-        {
-            "name": "Run SQL Queries",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceFolder}/sql-query.js",
-            "console": "integratedTerminal",
-            "env": {
-                "NODE_ENV": "development"
-            }
+            },
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
         }
     ]
 }

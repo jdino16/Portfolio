@@ -6,7 +6,10 @@
             "type": "shell",
             "command": "node",
             "args": ["server.js"],
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -19,60 +22,19 @@
             }
         },
         {
-            "label": "Run SQL Queries",
+            "label": "Start Portfolio Server (Background)",
             "type": "shell",
             "command": "node",
-            "args": ["sql-query.js"],
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "new"
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Install Dependencies",
-            "type": "shell",
-            "command": "npm",
-            "args": ["install"],
+            "args": ["server.js"],
             "group": "build",
             "presentation": {
                 "echo": true,
-                "reveal": "always",
+                "reveal": "silent",
                 "focus": false,
                 "panel": "new"
             },
-            "problemMatcher": []
-        },
-        {
-            "label": "Open Website",
-            "type": "shell",
-            "command": "start",
-            "args": ["http://localhost:3000"],
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared"
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Open Admin Panel",
-            "type": "shell",
-            "command": "start",
-            "args": ["http://localhost:3000/admin"],
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared"
-            },
-            "problemMatcher": []
+            "problemMatcher": [],
+            "isBackground": true
         }
     ]
 }
