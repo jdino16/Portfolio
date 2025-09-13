@@ -14,12 +14,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('.'));
 
-// MySQL Database Connection (WAMP Server - localhost with root)
+// MySQL Database Connection (Production-ready configuration)
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '', // WAMP usually has no password for root
-  database: 'portfolio_contacts'
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '', // WAMP usually has no password for root
+  database: process.env.DB_NAME || 'portfolio_contacts',
+  port: process.env.DB_PORT || 3306,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
 // Connect to MySQL
