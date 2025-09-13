@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/projects-modern.css">
+</head>
+<body>
+    <div style="padding: 20px; background: #0f0f23; color: white; min-height: 100vh;">
+        <h1>Certificate Functionality Test</h1>
+        <p>Testing certificate download, view, and verify functionality...</p>
+        
+        <!-- Include certificates section -->
+        <div id="certificates-container"></div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+            <h3>Test Results:</h3>
+            <div id="results"></div>
+            <button onclick="runTest()" style="background: #c084fc; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 10px;">Run Test</button>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function log(message) {
+            const results = document.getElementById('results');
+            results.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+            console.log(message);
+        }
+        
+        function runTest() {
+            log('Starting certificate test...');
+            
+            // Test functionality with existing certificates
+            const cards = document.querySelectorAll('.certificate-card-ultra');
+            log('Found ' + cards.length + ' certificate cards');
+            
+            if (cards.length > 0) {
+                const firstCard = cards[0];
+                const verifyUrl = firstCard.getAttribute('data-verify');
+                log('First certificate verify URL: ' + verifyUrl);
+                
+                // Test download
+                const downloadBtn = firstCard.querySelector('.download-btn-ultra');
+                if (downloadBtn) {
+                    log('Testing download button...');
+                    downloadBtn.click();
+                    log('Download button clicked');
+                }
+                
+                // Test view
+                const viewBtn = firstCard.querySelector('.view-btn-ultra');
+                if (viewBtn) {
+                    log('Testing view button...');
+                    viewBtn.click();
+                    log('View button clicked');
+                    
+                    setTimeout(() => {
+                        const modal = document.querySelector('.cert-modal-overlay');
+                        if (modal) {
+                            log('Modal opened successfully');
+                            
+                            const verifyBtn = modal.querySelector('.cert-verify-btn');
+                            if (verifyBtn) {
+                                log('Testing verify button...');
+                                verifyBtn.click();
+                                log('Verify button clicked');
+                            }
+                        } else {
+                            log('Modal did not open');
+                        }
+                    }, 500);
+                }
+            } else {
+                log('No certificate cards found - loading certificates section...');
+                loadCertificates();
+            }
+        }
+        
+        function loadCertificates() {
+            // Include certificates section directly
+            const certificatesHTML = `
+                <section id="certs" class="certificates-section-ultra">
+                    <div class="container mx-auto max-w-7xl px-4 py-24">
+                        <div class="certificates-header-ultra">
+                            <div class="header-icon-ultra">
+                                <div class="icon-glow"></div>
+                                <i class="ri-award-line"></i>
+                            </div>
+                            <h2 class="certificates-title-ultra">
+                                <span class="title-main">Certificates &</span>
+                                <span class="title-accent">Courses</span>
+                            </h2>
+                            <p class="certificates-subtitle-ultra">
+                                Professional certifications and courses that showcase my expertise in cutting-edge technologies
+                            </p>
+                        </div>
+
+                        <div class="certificates-filters-ultra">
+                            <div class="filter-container-ultra">
+                                <button class="filter-btn-ultra active" data-filter="all">
+                                    <div class="filter-icon">
+                                        <i class="ri-grid-line"></i>
+                                    </div>
+                                    <span>All Certificates</span>
+                                    <div class="filter-glow"></div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="certificates-grid-ultra">
+                            <!-- Android App Development -->
+                            <div class="certificate-card-ultra" data-category="development" data-pdf="./certificates/Android App Development.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/9U0W49734E27">
+                                <div class="card-preview-ultra">
+                                    <div class="preview-bg-ultra android-gradient">
+                                        <div class="preview-overlay-ultra">
+                                            <div class="preview-icon-ultra">
+                                                <i class="ri-smartphone-line"></i>
+                                            </div>
+                                            <div class="preview-text-ultra">
+                                                <span>Android</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <img class="cert-image-ultra" src="./certificates/Android App Development.png" alt="Android App Development Certificate" style="display: none;">
+                                
+                                <div class="card-content-ultra">
+                                    <div class="card-header-ultra">
+                                        <h3 class="cert-title-ultra">Android App Development</h3>
+                                        <div class="cert-level-ultra">
+                                            <span>Expert</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="cert-description-ultra">
+                                        Comprehensive course covering Android app development fundamentals, UI/UX design, and mobile programming best practices.
+                                    </p>
+                                    
+                                    <div class="cert-details-ultra">
+                                        <div class="cert-institution-ultra">
+                                            <i class="ri-school-line"></i>
+                                            <span>Vanderbilt University</span>
+                                        </div>
+                                        <div class="cert-platform-ultra">
+                                            <i class="ri-global-line"></i>
+                                            <span>Coursera</span>
+                                        </div>
+                                        <div class="cert-date-ultra">
+                                            <i class="ri-calendar-line"></i>
+                                            <span>2024</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-actions-ultra">
+                                        <button class="action-btn-ultra download-btn-ultra">
+                                            <i class="ri-download-2-line"></i>
+                                            <span>Download</span>
+                                        </button>
+                                        <button class="action-btn-ultra view-btn-ultra">
+                                            <i class="ri-eye-line"></i>
+                                            <span>View</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            
+            document.getElementById('certificates-container').innerHTML = certificatesHTML;
+            log('Certificates loaded directly');
+            
+            // Re-run test with loaded certificates
+            setTimeout(runTest, 100);
+        }
+        
+        // Auto-run test on load
+        document.addEventListener('DOMContentLoaded', runTest);
+    </script>
+</body>
+</html>

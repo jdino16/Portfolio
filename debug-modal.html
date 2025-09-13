@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Debug Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            background: #0f0f23;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-button {
+            background: #c084fc;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .test-button:hover {
+            background: #8b5cf6;
+        }
+        .cert-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .cert-modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .cert-close-btn {
+            background: rgba(192, 132, 252, 0.1);
+            color: #c084fc;
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .cert-download-btn, .cert-verify-btn {
+            background: linear-gradient(135deg, #c084fc, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .cert-verify-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+    </style>
+</head>
+<body>
+    <h1>Modal Debug Test</h1>
+    <p>Testing modal functionality step by step...</p>
+    
+    <button class="test-button" onclick="testModal()">Test Modal</button>
+    <button class="test-button" onclick="testCertificateModal()">Test Certificate Modal</button>
+    <button class="test-button" onclick="clearModals()">Clear All Modals</button>
+    
+    <div id="debug-info" style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+        <h3>Debug Info:</h3>
+        <div id="debug-log"></div>
+    </div>
+
+    <script>
+        function log(message) {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            console.log(message);
+        }
+        
+        function clearModals() {
+            const existingModals = document.querySelectorAll('.cert-modal-overlay');
+            existingModals.forEach(modal => modal.remove());
+            log('Cleared all modals');
+        }
+        
+        function testModal() {
+            log('Creating simple modal...');
+            
+            const modalOverlay = document.createElement('div');
+            modalOverlay.className = 'cert-modal-overlay';
+            modalOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(10px);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.className = 'cert-modal-content';
+            modalContent.innerHTML = `
+                <h2>Test Modal</h2>
+                <p>This is a test modal to check if modal functionality works.</p>
+                <button class="cert-close-btn" onclick="this.closest('.cert-modal-overlay').remove()">Close</button>
+            `;
+            
+            modalOverlay.appendChild(modalContent);
+            document.body.appendChild(modalOverlay);
+            
+            log('Modal created and added to DOM');
+            
+            // Animate in
+            setTimeout(() => {
+                modalOverlay.style.opacity = '1';
+                modalContent.style.transform = 'scale(1)';
+                log('Modal animated in');
+            }, 10);
+        }
+        
+        function testCertificateModal() {
+            log('Testing certificate modal function...');
+            
+            // Check if showCertificateModal function exists
+            if (typeof showCertificateModal === 'function') {
+                log('showCertificateModal function found');
+                
+                const testData = {
+                    title: 'Test Certificate',
+                    description: 'This is a test certificate for debugging',
+                    institution: 'Test University',
+                    platform: 'Coursera',
+                    date: '2024',
+                    level: 'Intermediate',
+                    category: 'test',
+                    image: '',
+                    pdf: './test.pdf',
+                    verify: 'https://www.coursera.org/account/accomplishments/verify/TEST123'
+                };
+                
+                log('Calling showCertificateModal with test data...');
+                showCertificateModal(testData);
+                log('showCertificateModal called');
+                
+                // Check if modal was created
+                setTimeout(() => {
+                    const modal = document.querySelector('.cert-modal-overlay');
+                    if (modal) {
+                        log('✅ Modal found in DOM after 1 second');
+                    } else {
+                        log('❌ No modal found in DOM after 1 second');
+                    }
+                }, 1000);
+                
+            } else {
+                log('❌ showCertificateModal function not found');
+            }
+        }
+        
+        // Load main.js
+        const script = document.createElement('script');
+        script.src = 'assets/js/main.js';
+        script.onload = function() {
+            log('main.js loaded');
+            log('showCertificateModal function available: ' + (typeof showCertificateModal !== 'undefined'));
+        };
+        script.onerror = function() {
+            log('❌ Error loading main.js');
+        };
+        document.head.appendChild(script);
+    </script>
+</body>
+</html>

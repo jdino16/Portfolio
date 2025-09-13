@@ -1,0 +1,2613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dinoja Jeyamelanews | Portfolio</title>
+    <meta name="description" content="Dinoja Jeyamelanews — Software Engineering undergraduate portfolio. Projects, skills, certificates and contact." />
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ink: '#0b0614',
+                        plum: '#6d28d9',
+                        magenta: '#a21caf',
+                        orchid: '#c084fc',
+                    },
+                    boxShadow: {
+                        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.25)',
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    },
+                },
+            },
+        }
+    </script>
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/projects-modern.css" />
+</head>
+
+<body class="bg-ink text-white selection:bg-orchid/30 selection:text-white antialiased">
+    <!-- SPECTACULAR ANIMATED BACKGROUND SYSTEM -->
+    <div class="cosmic-bg"></div>
+    <div class="geometric-bg"></div>
+    <div class="aurora-effect"></div>
+    <div class="holographic-grid"></div>
+    <div class="cyber-lines"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particle-field">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <!-- Floating Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    
+    <!-- Original starfield canvas -->
+    <canvas id="bg-stars" class="fixed inset-0 -z-3"></canvas>
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/20">
+        <nav class="container mx-auto max-w-7xl px-4">
+            <div class="flex items-center justify-between py-4">
+                <a href="#home" class="flex items-center gap-2 text-xl font-semibold creative-icon">
+                    <span class="icon-3d inline-flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-plum to-magenta shadow-glass pulse-glow">
+                        <i class="ri-flashlight-fill"></i>
+                    </span>
+                    <span class="holographic-text" data-text="Dinoja">Dinoja</span>
+                </a>
+                <ul class="hidden md:flex gap-6">
+                    <li><a class="nav-link magnetic" href="#home">Home
+                        <div class="particle-container">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </a></li>
+                    <li><a class="nav-link magnetic" href="#about">About
+                        <div class="particle-container">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </a></li>
+                    <li><a class="nav-link magnetic" href="#skills">Skills
+                        <div class="particle-container">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </a></li>
+                    <li><a class="nav-link magnetic" href="#projects">Projects
+                        <div class="particle-container">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </a></li>
+                    <li><a class="nav-link magnetic" href="#certs">Certificates
+                        <div class="particle-container">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </a></li>
+                    <li><a class="nav-link magnetic" href="#contact">Contact
+                        <div class="particle-container">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </a></li>
+                </ul>
+                <div class="md:hidden">
+                    <button id="menuBtn" class="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+                        <i class="ri-menu-3-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobileMenu" class="hidden flex-col gap-4 pb-4 md:hidden">
+                <a class="nav-link magnetic" href="#home">Home
+                    <div class="particle-container">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </a>
+                <a class="nav-link magnetic" href="#about">About
+                    <div class="particle-container">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </a>
+                <a class="nav-link magnetic" href="#skills">Skills
+                    <div class="particle-container">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </a>
+                <a class="nav-link magnetic" href="#projects">Projects
+                    <div class="particle-container">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </a>
+                <a class="nav-link magnetic" href="#certs">Certificates
+                    <div class="particle-container">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </a>
+                <a class="nav-link magnetic" href="#contact">Contact
+                    <div class="particle-container">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="container mx-auto max-w-7xl px-4 pt-10 md:pt-16 relative overflow-hidden cyber-pattern">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+                <div class="shape shape-5"></div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 items-center gap-10 md:grid-cols-2 relative z-10">
+            <div class="space-y-6 hero-content">
+                <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm backdrop-blur-md hero-badge">
+                    <span class="h-2 w-2 rounded-full bg-orchid animate-pulse"></span>
+                    <span>Welcome to my world</span>
+                </div>
+                <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl hero-title floating">
+                    Hi, I'm <span class="holographic-text" data-text="Dinoja Jeyamelanews">Dinoja Jeyamelanews</span>
+                </h1>
+                <p class="max-w-xl text-white/80 hero-description">
+                    Software Engineering undergraduate specializing in full‑stack development, AI/ML and modern web technologies. Passionate about creating innovative solutions and cutting-edge applications.
+                </p>
+                <div class="flex flex-wrap gap-4 hero-buttons">
+                    <!-- My Projects Button with Advanced Animations -->
+                    <a href="#projects" class="btn-projects btn-3d btn-animated">
+                        <div class="btn-content">
+                            <div class="btn-front">
+                                <span class="btn-text">My Projects</span>
+                                <div class="btn-icon-container">
+                                    <i class="ri-code-s-slash-line btn-icon"></i>
+                                </div>
+                            </div>
+                            <div class="btn-back">
+                                <span class="btn-text-back">View Now</span>
+                                <div class="btn-icon-container">
+                                    <i class="ri-arrow-right-line btn-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-glow"></div>
+                        <div class="btn-gradient-slide"></div>
+                        <div class="btn-icon-reveal">
+                            <svg class="icon-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                    </a>
+                    
+                    <!-- Download CV Button with Advanced Animations -->
+                    <a href="Dinoja%20Jeyamelanews.pdf" download class="btn-download btn-3d btn-animated">
+                        <div class="btn-content">
+                            <span class="btn-text">Download CV</span>
+                            <div class="btn-icon-container">
+                                <i class="ri-download-2-line btn-icon"></i>
+                                <div class="arrow-bounce">
+                                    <svg class="arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"/>
+                                        <polyline points="19,12 12,19 5,12"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-pulse"></div>
+                        <div class="paper-drop">
+                            <svg class="paper-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                        </div>
+                        <div class="confetti-container"></div>
+                    </a>
+                </div>
+                <div class="flex items-center gap-4 pt-4 text-lg hero-social">
+                    <a class="social icon-3d social-animated creative-icon" href="https://github.com/dinoja21" target="_blank" rel="noreferrer">
+                        <i class="ri-github-fill"></i>
+                    </a>
+                    <a class="social icon-3d social-animated contact-icon creative-icon" href="https://www.linkedin.com/in/dinoja-jeyamelanews" target="_blank" rel="noreferrer" data-contact="linkedin">
+                        <i class="ri-linkedin-box-fill"></i>
+                    </a>
+                    <a class="social icon-3d social-animated contact-icon creative-icon" href="mailto:dinoja21.dr@gmail.com" data-contact="email">
+                        <i class="ri-mail-line"></i>
+                    </a>
+                    <a class="social icon-3d social-animated contact-icon creative-icon" href="tel:+94751601034" data-contact="phone">
+                        <i class="ri-phone-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="relative h-[400px] md:h-[600px] hero-image-container">
+                <!-- Three.js canvas -->
+                <canvas id="hero-3d" class="absolute inset-0 h-full w-full"></canvas>
+                
+                <!-- ===== GRAPHIC ANIMATIONS BEHIND PHOTO ===== -->
+                
+                <!-- Floating Gradient Blobs -->
+                <div class="gradient-blobs">
+                    <div class="gradient-blob blob-1"></div>
+                    <div class="gradient-blob blob-2"></div>
+                    <div class="gradient-blob blob-3"></div>
+                    <div class="gradient-blob blob-4"></div>
+                </div>
+                
+                <!-- Rotating Geometric Shapes -->
+                <div class="geometric-shapes">
+                    <div class="geo-shape geo-square"></div>
+                    <div class="geo-shape geo-triangle"></div>
+                    <div class="geo-shape geo-hexagon"></div>
+                </div>
+                
+                <!-- Glow & Pulse Rings -->
+                <div class="pulse-rings">
+                    <div class="pulse-ring ring-1"></div>
+                    <div class="pulse-ring ring-2"></div>
+                    <div class="pulse-ring ring-3"></div>
+                </div>
+                
+                <!-- Enhanced Particle Animation -->
+                <div class="enhanced-particles">
+                    <div class="enhanced-particle"></div>
+                    <div class="enhanced-particle"></div>
+                    <div class="enhanced-particle"></div>
+                    <div class="enhanced-particle"></div>
+                    <div class="enhanced-particle"></div>
+                    <div class="enhanced-particle"></div>
+                </div>
+                
+                <!-- Glassmorphism Panels -->
+                <div class="glassmorphism-panels">
+                    <div class="glass-panel panel-1"></div>
+                    <div class="glass-panel panel-2"></div>
+                    <div class="glass-panel panel-3"></div>
+                </div>
+                
+                <!-- Enhanced 3D Photo Frame -->
+                <div class="photo-3d absolute inset-0 flex items-center justify-center">
+                    <div class="relative photo-frame">
+                        <div class="photo-glow"></div>
+                        <div class="photo-border"></div>
+                        <img src="assets/WhatsApp Image 2025-09-12 at 23.13.33_239b233a.jpg" alt="Dinoja Jeyamelanews" class="photo-img">
+                        <div class="photo-overlay"></div>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Frame ring -->
+                <div class="absolute inset-0 -z-10 animate-float-slow rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/5 to-white/0 shadow-glass frame-ring"></div>
+                
+                <!-- Original Floating particles (keeping for compatibility) -->
+                <div class="particles-container">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="container mx-auto max-w-7xl px-4 py-20 relative overflow-hidden">
+        <!-- Enhanced Background Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <!-- Floating Background Icons -->
+            <div class="floating-icons">
+                <div class="floating-icon icon-code">💻</div>
+                <div class="floating-icon icon-email">📧</div>
+                <div class="floating-icon icon-gear">⚙️</div>
+                <div class="floating-icon icon-brain">🧠</div>
+            </div>
+            
+            <!-- Interactive Particles -->
+            <div class="about-particles">
+                <div class="about-particle"></div>
+                <div class="about-particle"></div>
+                <div class="about-particle"></div>
+                <div class="about-particle"></div>
+                <div class="about-particle"></div>
+                <div class="about-particle"></div>
+            </div>
+            
+            <!-- Enhanced Background Particle Effect -->
+            <div class="bg-particle-effect">
+                <div class="bg-particle"></div>
+                <div class="bg-particle"></div>
+                <div class="bg-particle"></div>
+                <div class="bg-particle"></div>
+                <div class="bg-particle"></div>
+                <div class="bg-particle"></div>
+                <div class="bg-particle"></div>
+                <div class="bg-particle"></div>
+            </div>
+        </div>
+        
+        <!-- Modern About Me Layout -->
+        <div class="about-layout-modern">
+            <!-- Main About Card -->
+            <div class="about-main-card-modern">
+                <!-- About Header -->
+                <div class="about-header-modern">
+                    <div class="about-icon-modern">
+                        <i class="ri-user-heart-line"></i>
+                    </div>
+                    <div class="about-title-section">
+                        <h2 class="about-title-modern">About Me</h2>
+                        <p class="about-subtitle-modern">Software Engineering Student & Developer</p>
+                    </div>
+                </div>
+
+                <!-- About Content -->
+                <div class="about-content-modern">
+                    <div class="about-description-modern">
+                        <p class="about-text-modern">
+                            I'm a passionate <span class="highlight-modern">Software Engineering</span> undergraduate with hands-on experience in <span class="highlight-modern">full-stack web development</span>, <span class="highlight-modern">database design</span>, and <span class="highlight-modern">AI-driven solutions</span>. I love creating innovative applications using <span class="highlight-modern">modern frameworks</span> and contributing to meaningful software projects that make a difference.
+                        </p>
+                    </div>
+
+                    <!-- Education Timeline -->
+                    <div class="education-timeline-modern">
+                        <h3 class="education-title-modern">Education</h3>
+                        <div class="timeline-modern">
+                            <div class="timeline-item-modern">
+                                <div class="timeline-icon-modern">
+                                    <i class="ri-graduation-cap-line"></i>
+                                </div>
+                                <div class="timeline-content-modern">
+                                    <h4 class="timeline-degree-modern">BSc (Hons) Software Engineering</h4>
+                                    <p class="timeline-university-modern">Cardiff Metropolitan University</p>
+                                    <p class="timeline-date-modern">Expected Sep 2025</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item-modern">
+                                <div class="timeline-icon-modern">
+                                    <i class="ri-award-line"></i>
+                                </div>
+                                <div class="timeline-content-modern">
+                                    <h4 class="timeline-degree-modern">Higher Diploma in Computing & Software Engineering</h4>
+                                    <p class="timeline-university-modern">Completed</p>
+                                    <p class="timeline-date-modern">April 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Cards -->
+            <div class="about-side-cards-modern">
+                <!-- Contact Card -->
+                <div class="about-side-card-modern contact-card-modern">
+                    <div class="side-card-header-modern">
+                        <div class="side-card-icon-modern">
+                            <i class="ri-map-pin-line"></i>
+                        </div>
+                        <h3 class="side-card-title-modern">Contact</h3>
+                    </div>
+                    <div class="side-card-content-modern">
+                        <div class="contact-item-modern">
+                            <div class="contact-icon-modern">
+                                <i class="ri-map-pin-2-line"></i>
+                            </div>
+                            <div class="contact-details-modern">
+                                <span class="contact-label-modern">Location</span>
+                                <span class="contact-value-modern">Jaffna, Sri Lanka</span>
+                            </div>
+                        </div>
+                        <div class="contact-item-modern">
+                            <div class="contact-icon-modern">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <div class="contact-details-modern">
+                                <span class="contact-label-modern">Email</span>
+                                <span class="contact-value-modern">dinoja21.dr@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="contact-item-modern">
+                            <div class="contact-icon-modern">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <div class="contact-details-modern">
+                                <span class="contact-label-modern">Phone</span>
+                                <span class="contact-value-modern">+94 751601034</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech Stack Card -->
+                <div class="about-side-card-modern tech-card-modern">
+                    <div class="side-card-header-modern">
+                        <div class="side-card-icon-modern">
+                            <i class="ri-code-s-slash-line"></i>
+                        </div>
+                        <h3 class="side-card-title-modern">Tech Stack</h3>
+                    </div>
+                    <div class="side-card-content-modern">
+                        <div class="tech-categories-modern">
+                            <div class="tech-category-modern">
+                                <h4 class="tech-category-title-modern">Languages</h4>
+                                <div class="tech-tags-modern">
+                                    <span class="tech-tag-modern">JavaScript</span>
+                                    <span class="tech-tag-modern">TypeScript</span>
+                                    <span class="tech-tag-modern">Python</span>
+                                </div>
+                            </div>
+                            <div class="tech-category-modern">
+                                <h4 class="tech-category-title-modern">Frameworks</h4>
+                                <div class="tech-tags-modern">
+                                    <span class="tech-tag-modern">React</span>
+                                    <span class="tech-tag-modern">Angular</span>
+                                    <span class="tech-tag-modern">Node.js</span>
+                                    <span class="tech-tag-modern">Django</span>
+                                </div>
+                            </div>
+                            <div class="tech-category-modern">
+                                <h4 class="tech-category-title-modern">Tools & DB</h4>
+                                <div class="tech-tags-modern">
+                                    <span class="tech-tag-modern">MySQL</span>
+                                    <span class="tech-tag-modern">MongoDB</span>
+                                    <span class="tech-tag-modern">Git</span>
+                                    <span class="tech-tag-modern">VS Code</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills Card -->
+                <div class="about-side-card-modern skills-card-modern">
+                    <div class="side-card-header-modern">
+                        <div class="side-card-icon-modern">
+                            <i class="ri-brain-line"></i>
+                        </div>
+                        <h3 class="side-card-title-modern">Soft Skills</h3>
+                    </div>
+                    <div class="side-card-content-modern">
+                        <div class="skills-grid-modern">
+                            <div class="skill-item-modern">
+                                <div class="skill-icon-modern">
+                                    <i class="ri-lightbulb-line"></i>
+                                </div>
+                                <span class="skill-name-modern">Problem Solving</span>
+                            </div>
+                            <div class="skill-item-modern">
+                                <div class="skill-icon-modern">
+                                    <i class="ri-brain-line"></i>
+                                </div>
+                                <span class="skill-name-modern">Analytical Thinking</span>
+                            </div>
+                            <div class="skill-item-modern">
+                                <div class="skill-icon-modern">
+                                    <i class="ri-chat-3-line"></i>
+                                </div>
+                                <span class="skill-name-modern">Communication</span>
+                            </div>
+                            <div class="skill-item-modern">
+                                <div class="skill-icon-modern">
+                                    <i class="ri-team-line"></i>
+                                </div>
+                                <span class="skill-name-modern">Teamwork</span>
+                            </div>
+                            <div class="skill-item-modern">
+                                <div class="skill-icon-modern">
+                                    <i class="ri-time-line"></i>
+                                </div>
+                                <span class="skill-name-modern">Time Management</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="about-cta">
+            <p class="cta-text">Scroll down to see my Skills 👇</p>
+            <div class="bouncing-arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- Technical Skills -->
+    <section id="skills" class="technical-skills-section">
+        <!-- Animated Background Elements -->
+        <div class="skills-bg-elements">
+            <div class="skill-floating-icon" data-icon="js">JS</div>
+            <div class="skill-floating-icon" data-icon="react">⚛</div>
+            <div class="skill-floating-icon" data-icon="python">🐍</div>
+            <div class="skill-floating-icon" data-icon="git">G</div>
+            <div class="skill-floating-icon" data-icon="db">🗄</div>
+            <div class="skill-floating-icon" data-icon="css">CSS</div>
+            <div class="skill-floating-icon" data-icon="html">HTML</div>
+            <div class="skill-floating-icon" data-icon="node">N</div>
+        </div>
+        
+        <div class="container mx-auto max-w-7xl px-4 py-24">
+            <!-- Section Header -->
+            <div class="skills-header">
+                <div class="header-icon-container">
+                    <div class="header-icon">
+                        <i class="ri-code-s-slash-line"></i>
+                    </div>
+                    <div class="header-icon-glow"></div>
+                    <div class="header-icon-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+                <h2 class="skills-title">
+                    <span class="title-main">Technical</span>
+                    <span class="title-accent">Skills</span>
+                </h2>
+                <p class="skills-subtitle">
+                    Technologies I work with to bring ideas to life
+                </p>
+                <div class="skills-title-underline"></div>
+            </div>
+
+            <!-- Skill Category Tabs -->
+            <div class="skill-tabs-container">
+                <div class="skill-tabs">
+                    <button class="skill-tab active" data-category="all">All Skills</button>
+                    <button class="skill-tab" data-category="programming">Programming</button>
+                    <button class="skill-tab" data-category="frontend">Frontend</button>
+                    <button class="skill-tab" data-category="backend">Backend</button>
+                    <button class="skill-tab" data-category="tools">Tools</button>
+                </div>
+            </div>
+
+            <!-- Skills Grid -->
+            <div class="skills-grid">
+                <!-- Programming Languages -->
+                <div class="skill-category-card" data-category="programming">
+                    <div class="category-header">
+                        <div class="category-icon-container">
+                            <div class="category-icon">
+                                <i class="ri-code-s-slash-line"></i>
+                            </div>
+                            <div class="category-icon-glow"></div>
+                            <div class="category-icon-particles">
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                            </div>
+                        </div>
+                        <div class="category-info">
+                            <h3 class="category-title">Programming</h3>
+                            <span class="category-count">4 Languages</span>
+                        </div>
+                        <div class="category-badge">
+                            <span>Core</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-list">
+                        <div class="skill-item" data-skill="JavaScript">
+                            <div class="skill-header">
+                                <div class="skill-icon-container">
+                                    <div class="skill-icon">
+                                        <i class="ri-javascript-line"></i>
+                                    </div>
+                                    <div class="skill-icon-glow"></div>
+                                    <div class="skill-icon-pulse"></div>
+                                </div>
+                                <div class="skill-info">
+                                    <span class="skill-name">JavaScript</span>
+                                    <span class="skill-level">Expert</span>
+                                </div>
+                                <div class="skill-percentage">90%</div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-level="90"></div>
+                                    <div class="progress-glow"></div>
+                                </div>
+                            </div>
+                            <!-- Circular Progress Ring -->
+                            <div class="skill-progress-ring">
+                                <svg class="progress-ring" width="60" height="60">
+                                    <defs>
+                                        <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" style="stop-color:#c084fc;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                    <circle class="progress-ring-circle" stroke="#c084fc" stroke-width="3" fill="transparent" r="25" cx="30" cy="30"/>
+                                    <circle class="progress-ring-fill" stroke="url(#skillGradient)" stroke-width="3" fill="transparent" r="25" cx="30" cy="30" data-level="90"/>
+                                </svg>
+                                <div class="progress-ring-text">90%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="Python">
+                            <div class="skill-header">
+                                <div class="skill-icon-container">
+                                    <div class="skill-icon">
+                                        <i class="ri-python-line"></i>
+                                    </div>
+                                    <div class="skill-icon-glow"></div>
+                                    <div class="skill-icon-pulse"></div>
+                                </div>
+                                <div class="skill-info">
+                                    <span class="skill-name">Python</span>
+                                    <span class="skill-level">Advanced</span>
+                                </div>
+                                <div class="skill-percentage">85%</div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-level="85"></div>
+                                    <div class="progress-glow"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="TypeScript">
+                            <div class="skill-header">
+                                <div class="skill-icon-container">
+                                    <div class="skill-icon">
+                                        <i class="ri-code-s-slash-line"></i>
+                                    </div>
+                                    <div class="skill-icon-glow"></div>
+                                    <div class="skill-icon-pulse"></div>
+                                </div>
+                                <div class="skill-info">
+                                    <span class="skill-name">TypeScript</span>
+                                    <span class="skill-level">Advanced</span>
+                                </div>
+                                <div class="skill-percentage">80%</div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-level="80"></div>
+                                    <div class="progress-glow"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="C#">
+                            <div class="skill-header">
+                                <div class="skill-icon-container">
+                                    <div class="skill-icon">
+                                        <i class="ri-code-s-slash-line"></i>
+                                    </div>
+                                    <div class="skill-icon-glow"></div>
+                                    <div class="skill-icon-pulse"></div>
+                                </div>
+                                <div class="skill-info">
+                                    <span class="skill-name">C#</span>
+                                    <span class="skill-level">Intermediate</span>
+                                </div>
+                                <div class="skill-percentage">75%</div>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-level="75"></div>
+                                    <div class="progress-glow"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend Technologies -->
+                <div class="skill-category-modern" data-category="frontend">
+                    <div class="skill-category-header">
+                        <div class="skill-category-icon-container">
+                            <div class="skill-category-icon">
+                                <i class="ri-reactjs-line"></i>
+                            </div>
+                            <div class="skill-category-icon-glow"></div>
+                            <div class="skill-category-icon-particles">
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                            </div>
+                        </div>
+                        <h3 class="skill-category-title">Frontend</h3>
+                    </div>
+                    <div class="skill-items-modern">
+                        <div class="skill-item-modern" data-skill="React">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-reactjs-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">React</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="95"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="Angular">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-angularjs-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">Angular</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="80"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="Tailwind">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-palette-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">Tailwind CSS</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="90"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="HTML/CSS">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-html5-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">HTML/CSS</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="95"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Technologies -->
+                <div class="skill-category-modern" data-category="database">
+                    <div class="skill-category-header">
+                        <div class="skill-category-icon-container">
+                            <div class="skill-category-icon">
+                                <i class="ri-database-2-line"></i>
+                            </div>
+                            <div class="skill-category-icon-glow"></div>
+                            <div class="skill-category-icon-particles">
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                            </div>
+                        </div>
+                        <h3 class="skill-category-title">Databases</h3>
+                    </div>
+                    <div class="skill-items-modern">
+                        <div class="skill-item-modern" data-skill="MySQL">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-database-2-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">MySQL</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="85"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="MongoDB">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-database-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">MongoDB</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="80"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="SQL">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-database-2-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">SQL</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="90"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="NoSQL">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-database-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">NoSQL</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="75"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Development Tools -->
+                <div class="skill-category-modern" data-category="tools">
+                    <div class="skill-category-header">
+                        <div class="skill-category-icon-container">
+                            <div class="skill-category-icon">
+                                <i class="ri-tools-line"></i>
+                            </div>
+                            <div class="skill-category-icon-glow"></div>
+                            <div class="skill-category-icon-particles">
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                            </div>
+                        </div>
+                        <h3 class="skill-category-title">Tools</h3>
+                    </div>
+                    <div class="skill-items-modern">
+                        <div class="skill-item-modern" data-skill="Git">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-git-branch-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">Git</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="90"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="GitHub">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-github-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">GitHub</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="95"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="VS Code">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-code-s-slash-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">VS Code</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="95"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item-modern" data-skill="Postman">
+                            <div class="skill-item-icon-container">
+                                <div class="skill-item-icon">
+                                    <i class="ri-api-line"></i>
+                                </div>
+                                <div class="skill-item-icon-glow"></div>
+                                <div class="skill-item-icon-pulse"></div>
+                            </div>
+                            <span class="skill-item-name">Postman</span>
+                            <div class="skill-progress-bar">
+                                <div class="skill-progress-fill" data-level="85"></div>
+                                <div class="skill-progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="container mx-auto max-w-7xl px-4 py-16 relative overflow-hidden">
+        <!-- Projects Background Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="projects-particles">
+                <div class="project-particle"></div>
+                <div class="project-particle"></div>
+                <div class="project-particle"></div>
+                <div class="project-particle"></div>
+                <div class="project-particle"></div>
+                <div class="project-particle"></div>
+            </div>
+        </div>
+        
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="projects-section-icon">
+                    <i class="ri-code-box-line text-2xl text-orchid"></i>
+                </div>
+                <h2 class="section-title">Projects</h2>
+            </div>
+            
+            <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <article class="project-card card-3d" data-tilt>
+                    <div class="project-preview-container">
+                        <div class="project-preview-image ai-translator-preview">
+                            <div class="preview-overlay">
+                                <i class="ri-robot-line preview-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                    <div class="project-icon-container">
+                        <i class="ri-robot-line text-2xl project-icon"></i>
+                        <div class="project-icon-glow"></div>
+                    </div>
+                    <header class="flex items-center justify-between">
+                        <h3 class="font-semibold project-title">AI‑Powered Language Translator</h3>
+                        <span class="badge project-badge">2025</span>
+                    </header>
+                        <p class="mt-2 text-sm text-white/70 project-description">Advanced AI-powered translation system with real-time processing and multi-language support</p>
+                    <div class="project-tech-stack">
+                        <span class="tech-stack-badge">React</span>
+                        <span class="tech-stack-badge">Django</span>
+                        <span class="tech-stack-badge">MongoDB</span>
+                        <span class="tech-stack-badge">AI/ML</span>
+                            <span class="tech-stack-badge">TensorFlow</span>
+                    </div>
+                        <div class="project-actions">
+                    <a class="project-link" href="https://github.com/dinoja21/ai-translator" target="_blank" rel="noreferrer">
+                        <i class="ri-github-fill"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="project-card card-3d" data-tilt>
+                    <div class="project-preview-container">
+                        <div class="project-preview-image cab-booking-preview">
+                            <div class="preview-overlay">
+                                <i class="ri-taxi-line preview-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                    <div class="project-icon-container">
+                        <i class="ri-taxi-line text-2xl project-icon"></i>
+                        <div class="project-icon-glow"></div>
+                    </div>
+                    <header class="flex items-center justify-between">
+                        <h3 class="font-semibold project-title">Cab Booking System</h3>
+                        <span class="badge project-badge">2025</span>
+                    </header>
+                        <p class="mt-2 text-sm text-white/70 project-description">Complete taxi booking platform with real-time tracking and payment integration</p>
+                    <div class="project-tech-stack">
+                        <span class="tech-stack-badge">Java</span>
+                        <span class="tech-stack-badge">JSP</span>
+                        <span class="tech-stack-badge">Servlet</span>
+                        <span class="tech-stack-badge">Tomcat</span>
+                            <span class="tech-stack-badge">MySQL</span>
+                    </div>
+                        <div class="project-actions">
+                    <a class="project-link" href="https://github.com/dinoja21/cab-booking" target="_blank" rel="noreferrer">
+                        <i class="ri-github-fill"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="project-card card-3d" data-tilt>
+                    <div class="project-preview-container">
+                        <div class="project-preview-image restaurant-preview">
+                            <div class="preview-overlay">
+                                <i class="ri-restaurant-line preview-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                    <div class="project-icon-container">
+                        <i class="ri-restaurant-line text-2xl project-icon"></i>
+                        <div class="project-icon-glow"></div>
+                    </div>
+                    <header class="flex items-center justify-between">
+                        <h3 class="font-semibold project-title">ABC Restaurant Management</h3>
+                        <span class="badge project-badge">2024</span>
+                    </header>
+                        <p class="mt-2 text-sm text-white/70 project-description">Comprehensive restaurant management system with order tracking and inventory management</p>
+                    <div class="project-tech-stack">
+                        <span class="tech-stack-badge">Angular</span>
+                        <span class="tech-stack-badge">JavaScript</span>
+                        <span class="tech-stack-badge">Node.js</span>
+                        <span class="tech-stack-badge">Express</span>
+                            <span class="tech-stack-badge">MongoDB</span>
+                    </div>
+                        <div class="project-actions">
+                    <a class="project-link" href="https://github.com/dinoja21/restaurant-management" target="_blank" rel="noreferrer">
+                        <i class="ri-github-fill"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="project-card card-3d" data-tilt>
+                    <div class="project-preview-container">
+                        <div class="project-preview-image techfix-preview">
+                            <div class="preview-overlay">
+                                <i class="ri-tools-line preview-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                    <div class="project-icon-container">
+                        <i class="ri-tools-line text-2xl project-icon"></i>
+                        <div class="project-icon-glow"></div>
+                    </div>
+                    <header class="flex items-center justify-between">
+                        <h3 class="font-semibold project-title">TechFixApp – Repair Management</h3>
+                        <span class="badge project-badge">2023</span>
+                    </header>
+                        <p class="mt-2 text-sm text-white/70 project-description">Desktop application for managing device repairs with customer tracking and inventory</p>
+                    <div class="project-tech-stack">
+                        <span class="tech-stack-badge">C#</span>
+                        <span class="tech-stack-badge">.NET</span>
+                        <span class="tech-stack-badge">WinForms</span>
+                        <span class="tech-stack-badge">SQL Server</span>
+                            <span class="tech-stack-badge">Entity Framework</span>
+                    </div>
+                        <div class="project-actions">
+                    <a class="project-link" href="https://github.com/dinoja21/techfix-app" target="_blank" rel="noreferrer">
+                        <i class="ri-github-fill"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="project-card card-3d" data-tilt>
+                    <div class="project-preview-container">
+                        <div class="project-preview-image ecommerce-preview">
+                            <div class="preview-overlay">
+                                <i class="ri-shopping-cart-line preview-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                    <div class="project-icon-container">
+                        <i class="ri-shopping-cart-line text-2xl project-icon"></i>
+                        <div class="project-icon-glow"></div>
+                    </div>
+                    <header class="flex items-center justify-between">
+                        <h3 class="font-semibold project-title">E‑Commerce Platform</h3>
+                        <span class="badge project-badge">2024</span>
+                    </header>
+                        <p class="mt-2 text-sm text-white/70 project-description">Full-featured e-commerce platform with payment processing and admin dashboard</p>
+                    <div class="project-tech-stack">
+                        <span class="tech-stack-badge">React</span>
+                        <span class="tech-stack-badge">Node.js</span>
+                        <span class="tech-stack-badge">MongoDB</span>
+                        <span class="tech-stack-badge">Stripe</span>
+                            <span class="tech-stack-badge">Redux</span>
+                    </div>
+                        <div class="project-actions">
+                    <a class="project-link" href="https://github.com/dinoja21/ecommerce-platform" target="_blank" rel="noreferrer">
+                        <i class="ri-github-fill"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="project-card card-3d" data-tilt>
+                    <div class="project-preview-container">
+                        <div class="project-preview-image olms-preview">
+                            <div class="preview-overlay">
+                                <i class="ri-graduation-cap-line preview-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                    <div class="project-icon-container">
+                        <i class="ri-graduation-cap-line text-2xl project-icon"></i>
+                        <div class="project-icon-glow"></div>
+                    </div>
+                    <header class="flex items-center justify-between">
+                        <h3 class="font-semibold project-title">OLMS – Personalized Learning</h3>
+                        <span class="badge project-badge">2024</span>
+                    </header>
+                        <p class="mt-2 text-sm text-white/70 project-description">AI-powered learning management system with personalized content recommendations</p>
+                    <div class="project-tech-stack">
+                        <span class="tech-stack-badge">React</span>
+                        <span class="tech-stack-badge">Python</span>
+                        <span class="tech-stack-badge">SQL</span>
+                        <span class="tech-stack-badge">AI/ML</span>
+                            <span class="tech-stack-badge">Django</span>
+                    </div>
+                        <div class="project-actions">
+                    <a class="project-link" href="https://github.com/dinoja21/olms-learning" target="_blank" rel="noreferrer">
+                        <i class="ri-github-fill"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates & Courses -->
+    <section id="certs" class="certificates-section-ultra">
+        <div class="container mx-auto max-w-7xl px-4 py-24">
+            <!-- Section Header with Enhanced Graphics -->
+            <div class="certificates-header-ultra">
+                <div class="header-icon-ultra">
+                    <div class="icon-glow"></div>
+                    <div class="icon-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                    <i class="ri-award-line"></i>
+                </div>
+                <h2 class="certificates-title-ultra">
+                    <span class="title-main">Certificates &</span>
+                    <span class="title-accent">Courses</span>
+                </h2>
+                <p class="certificates-subtitle-ultra">
+                    Professional certifications and courses that showcase my expertise in cutting-edge technologies
+                </p>
+                <div class="title-decoration">
+                    <div class="decoration-line"></div>
+                    <div class="decoration-dot"></div>
+                    <div class="decoration-line"></div>
+                </div>
+            </div>
+
+            <!-- Enhanced Filter Navigation -->
+            <div class="certificates-filters-ultra">
+                <div class="filter-container-ultra">
+                    <button class="filter-btn-ultra active" data-filter="all">
+                        <div class="filter-icon">
+                            <i class="ri-grid-line"></i>
+                        </div>
+                        <span>All Certificates</span>
+                        <div class="filter-glow"></div>
+                        <div class="filter-ripple"></div>
+                    </button>
+                    <button class="filter-btn-ultra" data-filter="ai">
+                        <div class="filter-icon">
+                            <i class="ri-brain-line"></i>
+                        </div>
+                        <span>AI & ML</span>
+                        <div class="filter-glow"></div>
+                        <div class="filter-ripple"></div>
+                    </button>
+                    <button class="filter-btn-ultra" data-filter="cloud">
+                        <div class="filter-icon">
+                            <i class="ri-cloud-line"></i>
+                        </div>
+                        <span>Cloud</span>
+                        <div class="filter-glow"></div>
+                        <div class="filter-ripple"></div>
+                    </button>
+                    <button class="filter-btn-ultra" data-filter="development">
+                        <div class="filter-icon">
+                            <i class="ri-code-line"></i>
+                        </div>
+                        <span>Development</span>
+                        <div class="filter-glow"></div>
+                        <div class="filter-ripple"></div>
+                    </button>
+                    <button class="filter-btn-ultra" data-filter="data">
+                        <div class="filter-icon">
+                            <i class="ri-bar-chart-line"></i>
+                        </div>
+                        <span>Data Analytics</span>
+                        <div class="filter-glow"></div>
+                        <div class="filter-ripple"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Certificates Grid -->
+            <div class="certificates-grid-ultra">
+                <!-- Android App Development -->
+                <div class="certificate-card-ultra" data-category="development" data-verify="https://www.coursera.org/account/accomplishments/verify/9U0W49734E27">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra android-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-ultra">
+                                    <i class="ri-smartphone-line"></i>
+                                </div>
+                                <div class="preview-text-ultra">
+                                    <span>Android</span>
+                                </div>
+                            </div>
+                            <div class="preview-pattern"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <h3 class="cert-title-ultra">Android App Development</h3>
+                            <div class="cert-level-ultra expert">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                        
+                        <p class="cert-description-ultra">
+                            Comprehensive course covering Android app development fundamentals, UI/UX design, and mobile programming best practices.
+                        </p>
+                        
+                        <div class="cert-details-ultra">
+                            <div class="cert-institution-ultra">
+                                <i class="ri-school-line"></i>
+                                <span>Vanderbilt University</span>
+                            </div>
+                            <div class="cert-platform-ultra">
+                                <i class="ri-global-line"></i>
+                                <span>Coursera</span>
+                            </div>
+                            <div class="cert-date-ultra">
+                                <i class="ri-calendar-line"></i>
+                                <span>2024</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra verify-btn-ultra">
+                                <i class="ri-external-link-line"></i>
+                                <span>Verify Certificate</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generative AI Basics -->
+                <div class="certificate-card-ultra" data-category="ai" data-verify="https://www.coursera.org/account/accomplishments/verify/RYZBAXZ3X8RP">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra ai-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-robot-line preview-icon-ultra"></i>
+                                </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Hidden certificate image for modal display -->
+                    <img class="cert-image-ultra" src="./certificates/Generative AI Basics.png" alt="Generative AI Basics Certificate" style="display: none;">
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-robot-line"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">AI & ML</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Generative AI Basics</h3>
+                            <p class="cert-description-ultra">Introduction to generative AI concepts, machine learning fundamentals, and practical applications in modern technology.</p>
+                            <p class="cert-institution-ultra">IBM</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Computer Basics -->
+                <div class="certificate-card-ultra" data-category="development" data-pdf="./certificates/Computer Basics.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/MZBHD6H4P9X7">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra computer-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-computer-line preview-icon-ultra"></i>
+                        </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                        </div>
+                    </div>
+                            </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-computer-line"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">Development</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Advanced</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Computer Basics</h3>
+                            <p class="cert-description-ultra">Fundamental concepts of computer science, hardware, software, and basic programming principles.</p>
+                            <p class="cert-institution-ultra">IBM</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Full Stack Developer Test -->
+                <div class="certificate-card-ultra" data-category="development" data-pdf="./certificates/Full Stack Developer Test.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/X5ZHRF6CGS7N">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra fullstack-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-code-s-slash-line preview-icon-ultra"></i>
+                        </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                        </div>
+                    </div>
+                            </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-code-s-slash-line"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">Development</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Full Stack Developer Test</h3>
+                            <p class="cert-description-ultra">Comprehensive assessment covering front-end and back-end development skills, database management, and deployment strategies.</p>
+                            <p class="cert-institution-ultra">IBM</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- AI Basics -->
+                <div class="certificate-card-ultra" data-category="ai" data-pdf="./certificates/AI Basics (Google AI Essentials).pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/Q8MTDQWPTE4V">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra ai-basics-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-brain-line preview-icon-ultra"></i>
+                        </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                        </div>
+                    </div>
+                            </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-brain-line"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">AI & ML</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Advanced</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">AI Basics (Google AI Essentials)</h3>
+                            <p class="cert-description-ultra">Introduction to artificial intelligence concepts, machine learning algorithms, and practical AI applications.</p>
+                            <p class="cert-institution-ultra">Google</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Data Analytics -->
+                <div class="certificate-card-ultra" data-category="data" data-pdf="./certificates/Introduction to Data Analytics.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/SE1H7H4VECBN?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra data-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-bar-chart-line preview-icon-ultra"></i>
+                        </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                        </div>
+                    </div>
+                            </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-bar-chart-line"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">Data Analytics</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Introduction to Data Analytics</h3>
+                            <p class="cert-description-ultra">Data analysis techniques, statistical methods, and tools for extracting insights from large datasets.</p>
+                            <p class="cert-institution-ultra">IBM</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Cloud Computing Basics -->
+                <div class="certificate-card-ultra" data-category="cloud" data-pdf="./certificates/Cloud Computing Basics.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/RYZBAXZ3X8RP">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra cloud-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-cloud-line preview-icon-ultra"></i>
+                                </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Hidden certificate image for modal display -->
+                    <img class="cert-image-ultra" src="./certificates/Cloud Computing Basics.png" alt="Cloud Computing Basics Certificate" style="display: none;">
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-cloud-line"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">Cloud Computing</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Advanced</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Cloud Computing Basics</h3>
+                            <p class="cert-description-ultra">Introduction to cloud computing concepts, services, deployment models, and cloud security fundamentals.</p>
+                            <p class="cert-institution-ultra">IBM</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Front-End Development -->
+                <div class="certificate-card-ultra" data-category="development" data-pdf="./certificates/Front-End Development Basics.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/TDGHY9KDT9SX">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra frontend-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-reactjs-line preview-icon-ultra"></i>
+                        </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                        </div>
+                    </div>
+                            </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-reactjs-line"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">Development</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Front-End Development Basics</h3>
+                            <p class="cert-description-ultra">Modern front-end development techniques, responsive design, and user interface best practices.</p>
+                            <p class="cert-institution-ultra">IBM</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Cloud Architect Basics -->
+                <div class="certificate-card-ultra" data-category="cloud" data-pdf="./certificates/Cloud Architect Basics.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/KRTDPWTCNZU7">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra architect-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-cloud-fill preview-icon-ultra"></i>
+                        </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                        </div>
+                    </div>
+                            </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-cloud-fill"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">Cloud Computing</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Cloud Architect Basics</h3>
+                            <p class="cert-description-ultra">Cloud architecture design principles, scalability patterns, and infrastructure management strategies.</p>
+                            <p class="cert-institution-ultra">Google Cloud</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Software Engineering -->
+                <div class="certificate-card-ultra" data-category="development" data-pdf="./certificates/Software Engineering Basics.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/44XKU8H8MVCN">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra software-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-tools-line preview-icon-ultra"></i>
+                        </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                        </div>
+                    </div>
+                            </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-tools-line"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">Development</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Software Engineering Basics</h3>
+                            <p class="cert-description-ultra">Software development lifecycle, design patterns, testing methodologies, and project management principles.</p>
+                            <p class="cert-institution-ultra">IBM</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Machine Learning -->
+                <div class="certificate-card-ultra" data-category="ai" data-pdf="./certificates/Foundations of Machine Learning.pdf" data-verify="https://www.coursera.org/account/accomplishments/verify/XBKLFRD2PET7?utm_source=ln&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course">
+                    <div class="card-preview-ultra">
+                        <div class="preview-bg-ultra ml-gradient">
+                            <div class="preview-overlay-ultra">
+                                <div class="preview-icon-container">
+                                    <i class="ri-brain-fill preview-icon-ultra"></i>
+                        </div>
+                                <div class="preview-particles">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                        </div>
+                    </div>
+                            </div>
+                        <div class="completion-badge-ultra">
+                            <div class="badge-glow"></div>
+                            <i class="ri-check-line"></i>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content-ultra">
+                        <div class="card-header-ultra">
+                            <div class="cert-icon-ultra">
+                                <div class="icon-bg"></div>
+                                <i class="ri-brain-fill"></i>
+                            </div>
+                            <div class="cert-meta-ultra">
+                                <span class="cert-category-ultra">AI & ML</span>
+                                <span class="cert-date-ultra">2024</span>
+                            </div>
+                            <div class="cert-level-ultra">
+                                <span>Expert</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body-ultra">
+                            <h3 class="cert-title-ultra">Machine Learning</h3>
+                            <p class="cert-description-ultra">Advanced machine learning algorithms, neural networks, and predictive modeling techniques.</p>
+                            <p class="cert-institution-ultra">Coursera</p>
+                            <p class="cert-platform-ultra">Coursera</p>
+                            
+                            <div class="cert-progress-ultra">
+                                <div class="progress-info-ultra">
+                                    <span class="progress-label-ultra">Completion</span>
+                                    <span class="progress-percentage-ultra">100%</span>
+                                </div>
+                                <div class="progress-bar-ultra">
+                                    <div class="progress-fill-ultra" data-level="100">
+                                        <div class="progress-shine"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions-ultra">
+                            <button class="action-btn-ultra download-btn-ultra">
+                                <div class="btn-glow"></div>
+                                <i class="ri-download-2-line"></i>
+                            <span>Download</span>
+                            </button>
+                            <button class="action-btn-ultra view-btn-ultra">
+                                <div class="btn-glow"></div>
+                            <i class="ri-eye-line"></i>
+                                <span>View</span>
+                        </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration-ultra">
+                        <div class="decoration-orb"></div>
+                        <div class="decoration-ring"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- References -->
+    <section class="references-section">
+        <div class="container mx-auto max-w-7xl px-4 py-20">
+            <!-- Section Header -->
+            <div class="references-header">
+                <h2 class="references-title">
+                    <span class="title-text">Professional</span>
+                    <span class="title-highlight">References</span>
+                </h2>
+                <p class="references-subtitle">Trusted professionals who can vouch for my work and character</p>
+            </div>
+
+            <!-- References Grid -->
+            <div class="references-grid">
+                <!-- Reference Card 1 -->
+                <div class="reference-card">
+                    <div class="card-header">
+                        <div class="reference-avatar">
+                            <div class="avatar-icon">
+                                <i class="ri-user-star-line"></i>
+                            </div>
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="reference-info">
+                            <h3 class="reference-name">Mr. T. Danny Hamshananth</h3>
+                            <p class="reference-title">Visiting Lecturer</p>
+                            <p class="reference-organization">ICBT Jaffna Campus</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="reference-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="ri-phone-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <span class="detail-label">Phone</span>
+                                    <span class="detail-value">075 074 0708</span>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="ri-mail-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <span class="detail-label">Email</span>
+                                    <span class="detail-value">hamshananth@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reference-actions">
+                            <button class="action-btn contact-btn">
+                                <i class="ri-phone-line"></i>
+                                <span>Contact</span>
+                            </button>
+                            <button class="action-btn email-btn">
+                                <i class="ri-mail-line"></i>
+                                <span>Email</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration">
+                        <div class="decoration-circle"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+
+                <!-- Reference Card 2 -->
+                <div class="reference-card">
+                    <div class="card-header">
+                        <div class="reference-avatar">
+                            <div class="avatar-icon">
+                                <i class="ri-user-settings-line"></i>
+                            </div>
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="reference-info">
+                            <h3 class="reference-name">Mr. Amaresh Gunesingam</h3>
+                            <p class="reference-title">Senior Centre Manager</p>
+                            <p class="reference-organization">ICBT Jaffna Campus</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="reference-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="ri-phone-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <span class="detail-label">Phone</span>
+                                    <span class="detail-value">+94 769 289 784</span>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="ri-mail-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <span class="detail-label">Email</span>
+                                    <span class="detail-value">amaresh@icbtcampus.edu.lk</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reference-actions">
+                            <button class="action-btn contact-btn">
+                                <i class="ri-phone-line"></i>
+                                <span>Contact</span>
+                            </button>
+                            <button class="action-btn email-btn">
+                                <i class="ri-mail-line"></i>
+                                <span>Email</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-decoration">
+                        <div class="decoration-circle"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section-modern">
+        <!-- Animated Background -->
+        <div class="contact-bg-modern">
+            <div class="contact-particles-modern">
+                <div class="contact-particle"></div>
+                <div class="contact-particle"></div>
+                <div class="contact-particle"></div>
+                <div class="contact-particle"></div>
+                <div class="contact-particle"></div>
+                <div class="contact-particle"></div>
+                <div class="contact-particle"></div>
+                <div class="contact-particle"></div>
+            </div>
+            <div class="contact-waves-modern">
+                <div class="contact-wave wave-1"></div>
+                <div class="contact-wave wave-2"></div>
+                <div class="contact-wave wave-3"></div>
+            </div>
+            <div class="contact-shapes-modern">
+                <div class="contact-shape shape-1"></div>
+                <div class="contact-shape shape-2"></div>
+                <div class="contact-shape shape-3"></div>
+                <div class="contact-shape shape-4"></div>
+            </div>
+        </div>
+
+        <div class="container mx-auto max-w-7xl px-4 relative z-10">
+            <!-- Contact Header -->
+            <div class="contact-header-modern">
+                <div class="contact-icon-container-modern">
+                    <div class="contact-main-icon-modern">
+                        <i class="ri-customer-service-2-line"></i>
+                    </div>
+                    <div class="contact-icon-glow-modern"></div>
+                </div>
+                <h2 class="contact-title-modern">
+                    <span class="contact-title-text">Get In Touch</span>
+                    <span class="contact-title-accent">Let's Connect!</span>
+                </h2>
+                <p class="contact-subtitle-modern">
+                    Ready to bring your ideas to life? I'm here to help you create something extraordinary. 
+                    <span class="contact-subtitle-highlight">Drop me a message and let's start the conversation!</span>
+                </p>
+            </div>
+
+            <!-- Contact Layout -->
+            <div class="contact-layout-modern">
+                <!-- Contact Information Card -->
+                <div class="contact-info-modern">
+                    <div class="contact-info-header-modern">
+                        <div class="contact-info-icon-modern">
+                            <i class="ri-information-line"></i>
+                        </div>
+                        <h3 class="contact-info-title-modern">Contact Information</h3>
+                        <div class="contact-info-decoration-modern"></div>
+                    </div>
+                    
+                    <div class="contact-methods-modern">
+                        <div class="contact-method-modern" data-contact="email">
+                            <div class="contact-method-icon-modern">
+                                <i class="ri-mail-line"></i>
+                                <div class="contact-method-icon-glow"></div>
+                            </div>
+                            <div class="contact-method-content-modern">
+                                <h4 class="contact-method-title-modern">Email Address</h4>
+                                <p class="contact-method-detail-modern">dinoja21.dr@gmail.com</p>
+                                <div class="contact-method-action-modern">
+                                    <span class="contact-action-text">Click to copy</span>
+                                    <i class="ri-file-copy-line"></i>
+                                </div>
+                            </div>
+                            <div class="contact-method-hover-effect"></div>
+                        </div>
+
+                        <div class="contact-method-modern" data-contact="phone">
+                            <div class="contact-method-icon-modern">
+                                <i class="ri-phone-line"></i>
+                                <div class="contact-method-icon-glow"></div>
+                            </div>
+                            <div class="contact-method-content-modern">
+                                <h4 class="contact-method-title-modern">Phone Number</h4>
+                                <p class="contact-method-detail-modern">+94 75 160 1034</p>
+                                <div class="contact-method-action-modern">
+                                    <span class="contact-action-text">Click to call</span>
+                                    <i class="ri-phone-fill"></i>
+                                </div>
+                            </div>
+                            <div class="contact-method-hover-effect"></div>
+                        </div>
+
+                        <div class="contact-method-modern" data-contact="linkedin">
+                            <div class="contact-method-icon-modern">
+                                <i class="ri-linkedin-line"></i>
+                                <div class="contact-method-icon-glow"></div>
+                            </div>
+                            <div class="contact-method-content-modern">
+                                <h4 class="contact-method-title-modern">LinkedIn Profile</h4>
+                                <p class="contact-method-detail-modern">linkedin.com/in/dinoja-jeyamelanews</p>
+                                <div class="contact-method-action-modern">
+                                    <span class="contact-action-text">Visit profile</span>
+                                    <i class="ri-external-link-line"></i>
+                                </div>
+                            </div>
+                            <div class="contact-method-hover-effect"></div>
+                        </div>
+
+                        <div class="contact-method-modern" data-contact="location">
+                            <div class="contact-method-icon-modern">
+                                <i class="ri-map-pin-line"></i>
+                                <div class="contact-method-icon-glow"></div>
+                            </div>
+                            <div class="contact-method-content-modern">
+                                <h4 class="contact-method-title-modern">Location</h4>
+                                <p class="contact-method-detail-modern">Jaffna, Sri Lanka</p>
+                                <div class="contact-method-action-modern">
+                                    <span class="contact-action-text">View on map</span>
+                                    <i class="ri-map-2-line"></i>
+                                </div>
+                            </div>
+                            <div class="contact-method-hover-effect"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Card -->
+                <div class="contact-form-modern">
+                    <div class="contact-form-header-modern">
+                        <div class="contact-form-icon-modern">
+                            <i class="ri-send-plane-line"></i>
+                        </div>
+                        <h3 class="contact-form-title-modern">Send Message</h3>
+                        <p class="contact-form-subtitle-modern">Tell me about your project and I'll get back to you within 24 hours!</p>
+                    </div>
+                    
+                    <form id="contactForm" class="contact-form-fields-modern">
+                        <div id="formMessage" class="contact-form-message-modern hidden"></div>
+                        
+                        <div class="contact-form-group-modern">
+                            <div class="contact-form-label-container-modern">
+                                <label class="contact-form-label-modern" for="name">
+                                    <i class="ri-user-line"></i>
+                                    <span>Your Name</span>
+                                </label>
+                            </div>
+                            <div class="contact-form-input-container-modern">
+                                <input type="text" required class="contact-form-input-modern" id="name" name="name" placeholder="Enter your full name" />
+                                <div class="contact-form-input-glow"></div>
+                                <div class="contact-form-input-border"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-form-group-modern">
+                            <div class="contact-form-label-container-modern">
+                                <label class="contact-form-label-modern" for="email">
+                                    <i class="ri-mail-line"></i>
+                                    <span>Email Address</span>
+                                </label>
+                            </div>
+                            <div class="contact-form-input-container-modern">
+                                <input type="email" required class="contact-form-input-modern" id="email" name="email" placeholder="your.email@example.com" />
+                                <div class="contact-form-input-glow"></div>
+                                <div class="contact-form-input-border"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-form-group-modern">
+                            <div class="contact-form-label-container-modern">
+                                <label class="contact-form-label-modern" for="message">
+                                    <i class="ri-message-3-line"></i>
+                                    <span>Your Message</span>
+                                </label>
+                            </div>
+                            <div class="contact-form-input-container-modern">
+                                <textarea required class="contact-form-input-modern contact-form-textarea-modern" id="message" name="message" placeholder="Tell me about your project, ideas, or how I can help you..."></textarea>
+                                <div class="contact-form-input-glow"></div>
+                                <div class="contact-form-input-border"></div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="contact-form-submit-modern" id="submitBtn">
+                            <div class="contact-submit-content-modern">
+                                <div class="contact-submit-icon-modern">
+                                    <i class="ri-send-plane-2-line"></i>
+                                </div>
+                                <span class="contact-submit-text-modern" id="btnText">Send Message</span>
+                                <div class="contact-submit-loading-modern">
+                                    <div class="contact-loading-spinner"></div>
+                                </div>
+                            </div>
+                            <div class="contact-submit-glow-modern"></div>
+                            <div class="contact-submit-ripple-modern"></div>
+                        </button>
+                    </form>
+
+                    <!-- Social Links -->
+                    <div class="contact-social-modern">
+                        <div class="contact-social-header-modern">
+                            <div class="contact-social-icon-modern">
+                                <i class="ri-share-line"></i>
+                            </div>
+                            <h4 class="contact-social-title-modern">Connect With Me</h4>
+                        </div>
+                        <div class="contact-social-links-modern">
+                            <a href="https://www.linkedin.com/in/dinoja-jeyamelanews" target="_blank" class="contact-social-link-modern" data-social="linkedin">
+                                <i class="ri-linkedin-line"></i>
+                                <span>LinkedIn</span>
+                                <div class="contact-social-link-glow"></div>
+                            </a>
+                            <a href="https://github.com/dinoja21" target="_blank" class="contact-social-link-modern" data-social="github">
+                                <i class="ri-github-line"></i>
+                                <span>GitHub</span>
+                                <div class="contact-social-link-glow"></div>
+                            </a>
+                            <a href="mailto:dinoja21.dr@gmail.com" class="contact-social-link-modern" data-social="email">
+                                <i class="ri-mail-line"></i>
+                                <span>Email</span>
+                                <div class="contact-social-link-glow"></div>
+                            </a>
+                            <a href="tel:+94751601034" class="contact-social-link-modern" data-social="phone">
+                                <i class="ri-phone-line"></i>
+                                <span>Call</span>
+                                <div class="contact-social-link-glow"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Stats -->
+            <div class="contact-stats-modern">
+                <div class="contact-stat-modern">
+                    <div class="contact-stat-icon-modern">
+                        <i class="ri-time-line"></i>
+                    </div>
+                    <div class="contact-stat-content-modern">
+                        <span class="contact-stat-number-modern">24h</span>
+                        <span class="contact-stat-label-modern">Response Time</span>
+                    </div>
+                </div>
+                <div class="contact-stat-modern">
+                    <div class="contact-stat-icon-modern">
+                        <i class="ri-check-line"></i>
+                    </div>
+                    <div class="contact-stat-content-modern">
+                        <span class="contact-stat-number-modern">100%</span>
+                        <span class="contact-stat-label-modern">Success Rate</span>
+                    </div>
+                </div>
+                <div class="contact-stat-modern">
+                    <div class="contact-stat-icon-modern">
+                        <i class="ri-heart-line"></i>
+                    </div>
+                    <div class="contact-stat-content-modern">
+                        <span class="contact-stat-number-modern">∞</span>
+                        <span class="contact-stat-label-modern">Enthusiasm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECTACULAR CREATIVE FOOTER -->
+    <footer class="creative-footer">
+        <!-- Animated Background Elements -->
+        <div class="footer-bg-elements">
+            <div class="footer-particles">
+                <div class="footer-particle"></div>
+                <div class="footer-particle"></div>
+                <div class="footer-particle"></div>
+                <div class="footer-particle"></div>
+                <div class="footer-particle"></div>
+                <div class="footer-particle"></div>
+            </div>
+            <div class="footer-waves">
+                <div class="wave wave-1"></div>
+                <div class="wave wave-2"></div>
+                <div class="wave wave-3"></div>
+            </div>
+        </div>
+        
+        <!-- Footer Content -->
+        <div class="footer-content">
+            <div class="footer-main">
+                <!-- Logo Section -->
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <i class="ri-flashlight-fill"></i>
+                    </div>
+                    <h3 class="footer-logo-text">Dinoja Jeyamelanews</h3>
+                </div>
+                
+                <!-- Copyright Section -->
+                <div class="footer-copyright">
+                    <p class="copyright-text">
+                        © <span id="year" class="year-highlight"></span> 
+                        <span class="name-highlight">Dinoja Jeyamelanews</span>
+                    </p>
+                    <p class="built-with">
+                        Built with 
+                        <span class="tech-highlight">HTML</span>, 
+                        <span class="tech-highlight">Tailwind</span>, 
+                        <span class="tech-highlight">Three.js</span> & 
+                        <span class="tech-highlight">GSAP</span>
+                    </p>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="footer-social">
+                    <a href="https://github.com/dinoja21" target="_blank" class="footer-social-link" title="GitHub">
+                        <i class="ri-github-fill"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/dinoja-jeyamelanews" target="_blank" class="footer-social-link" title="LinkedIn">
+                        <i class="ri-linkedin-box-fill"></i>
+                    </a>
+                    <a href="mailto:dinoja21.dr@gmail.com" class="footer-social-link" title="Email">
+                        <i class="ri-mail-line"></i>
+                    </a>
+                    <a href="tel:+94751601034" class="footer-social-link" title="Phone">
+                        <i class="ri-phone-fill"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-divider"></div>
+                <p class="footer-message">
+                    Crafted with <span class="heart">❤️</span> and lots of <span class="coffee">☕</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vendor libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-tQf2m3c7x6eZfFZy4rK6GQO+K5rjz4o8Wlq8Y2yH8m5qZCqS1XnJXjV2q3n3oE6c1oE8Dqj2R2rW1p1b9m5qWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" integrity="sha512-0Z8j5qjQj7gVc7XIZG5aDq3kS9W07iTL4SYeqOkr4oHYkYbB5T7B4aZ4c2dHpA0F63GgF/6uD6uGSF5yIaR4jV4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- App scripts -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
