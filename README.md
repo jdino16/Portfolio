@@ -1,81 +1,146 @@
 # Dinoja Jeyamelanews Portfolio
 
-A modern, responsive portfolio website with contact form functionality.
+A modern, responsive portfolio website showcasing my skills, projects, and contact information.
 
 ## Features
 
-- 🎨 Modern, responsive design
-- 📱 Mobile-friendly interface
-- 📧 Contact form with email notifications
-- 🗄️ MySQL database integration
-- 🚀 Ready for Vercel deployment
+- **Modern Design**: Clean, professional layout with smooth animations
+- **Responsive**: Works perfectly on all devices (desktop, tablet, mobile)
+- **Contact Form**: Functional contact form with backend API
+- **Project Showcase**: Display of personal projects and skills
+- **Certificate Gallery**: Interactive certificate display
+- **Admin Panel**: Backend admin interface for managing contacts
 
-## Local Development
+## Tech Stack
 
-1. Install dependencies:
+### Frontend
+- HTML5, CSS3, JavaScript (ES6+)
+- Modern CSS with Flexbox and Grid
+- Responsive design principles
+- Smooth animations and transitions
+
+### Backend
+- Node.js with Express.js
+- MySQL database for contact storage
+- Nodemailer for email notifications
+- CORS enabled for cross-origin requests
+
+## Installation & Setup
+
+### Prerequisites
+- Node.js (v14 or higher)
+- MySQL/WAMP Server
+- Git
+
+### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jdino16/Portfolio.git
+   cd Portfolio
+   ```
+
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-2. Set up environment variables:
-   ```bash
-   cp env.example .env
-   # Edit .env with your database and email settings
-   ```
+3. **Set up environment variables**
+   - Copy `env.example` to `.env`
+   - Update the database and email credentials
 
-3. Start the server:
+4. **Set up MySQL database**
+   - Start your MySQL/WAMP Server
+   - The server will automatically create the required database and tables
+
+5. **Start the server**
    ```bash
    npm start
+   # or
+   node server.js
    ```
 
-4. Open your browser:
-   ```
-   http://localhost:3000
-   ```
+6. **Access the website**
+   - Main website: `http://localhost:3000`
+   - Admin panel: `http://localhost:3000/admin`
 
-## Vercel Deployment
+## Project Structure
 
-This project is configured for easy deployment on Vercel.
+```
+Portfolio/
+├── assets/
+│   ├── css/
+│   │   ├── styles.css
+│   │   ├── certificates-modern.css
+│   │   └── projects-modern.css
+│   └── js/
+│       └── main.js
+├── certificates/
+│   └── Dinoja Jeyamelanews.pdf
+├── .vscode/
+│   ├── tasks.json
+│   └── launch.json
+├── server.js
+├── package.json
+├── admin.html
+├── index.html
+└── README.md
+```
 
-### Prerequisites
+## API Endpoints
 
-- Vercel account (free at [vercel.com](https://vercel.com))
-- GitHub account
-- Database service (PlanetScale, Railway, or similar)
+- `GET /` - Main portfolio website
+- `POST /api/contact` - Submit contact form
+- `GET /api/contacts` - Get all contacts (admin)
+- `PUT /api/contacts/:id/status` - Update contact status
+- `DELETE /api/contacts/:id` - Delete contact
+- `GET /admin` - Admin panel
 
-### Deployment Steps
+## Development
 
-1. **Push to GitHub:**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin https://github.com/yourusername/your-repo-name.git
-   git push -u origin main
-   ```
+### VS Code Setup
+The project includes VS Code configuration for easy development:
+- Press `F5` to start debugging
+- Use `Ctrl+Shift+P` → "Tasks: Run Task" → "Start Portfolio Server"
 
-2. **Deploy on Vercel:**
-   - Go to [vercel.com/new](https://vercel.com/new)
-   - Import your GitHub repository
-   - Configure environment variables
-   - Deploy!
+### Scripts
+- `npm start` - Start the production server
+- `npm run dev` - Start development server with nodemon
 
-### Environment Variables for Vercel
+## Contact Form
 
-Set these in your Vercel dashboard:
+The contact form includes:
+- Client-side validation
+- Server-side validation
+- Database storage
+- Email notifications (optional)
+- Success/error feedback
 
-- `DATABASE_URL` - Your production database connection string
-- `EMAIL_USER` - Your email address
-- `EMAIL_PASS` - Your email app password
+## Admin Features
 
-## Tech Stack
+- View all contact submissions
+- Update contact status (new, read, replied)
+- Delete contacts
+- Responsive admin interface
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Node.js, Express.js
-- **Database:** MySQL
-- **Email:** Nodemailer
-- **Deployment:** Vercel
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## License
 
-MIT License
+This project is licensed under the MIT License.
+
+## Contact
+
+- **Name**: Dinoja Jeyamelanews
+- **Email**: dinoja21.dr@gmail.com
+- **GitHub**: [@jdino16](https://github.com/jdino16)
+
+---
+
+Made with ❤️ by Dinoja Jeyamelanews

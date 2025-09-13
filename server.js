@@ -14,21 +14,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('.'));
 
-// MySQL Database Connection
-const dbConfig = process.env.DATABASE_URL 
-  ? {
-      // Production database (from Vercel environment variable)
-      uri: process.env.DATABASE_URL
-    }
-  : {
-      // Local development database
-      host: 'localhost',
-      user: 'root',
-      password: '', // WAMP usually has no password for root
-      database: 'portfolio_contacts'
-    };
-
-const db = mysql.createConnection(dbConfig);
+// MySQL Database Connection (WAMP Server - localhost with root)
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '', // WAMP usually has no password for root
+  database: 'portfolio_contacts'
+});
 
 // Connect to MySQL
 db.connect((err) => {
