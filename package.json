@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "echo 'No build step required'",
-    "heroku-postbuild": "npm install"
+    "build": "echo 'Build completed - static site ready for deployment'",
+    "netlify:dev": "netlify dev"
   },
   "dependencies": {
     "express": "^4.18.2",
