@@ -1,4 +1,4 @@
-# Dinoja Jeyamelanews Portfolio
+# Dinoja Jeyamalanews Portfolio
 
 A modern, responsive portfolio website showcasing my skills, projects, and contact information.
 
@@ -76,7 +76,7 @@ Portfolio/
 │   └── js/
 │       └── main.js
 ├── certificates/
-│   └── Dinoja Jeyamelanews.pdf
+│   └── Dinoja Jeyamalanews.pdf
 ├── .vscode/
 │   ├── tasks.json
 │   └── launch.json
@@ -137,10 +137,10 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-- **Name**: Dinoja Jeyamelanews
+- **Name**: Dinoja Jeyamalanews
 - **Email**: dinoja21.dr@gmail.com
 - **GitHub**: [@jdino16](https://github.com/jdino16)
 
 ---
 
-Made with ❤️ by Dinoja Jeyamelanews
+Made with ❤️ by Dinoja Jeyamalanews

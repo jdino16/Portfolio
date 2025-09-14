@@ -1411,7 +1411,7 @@ function handlePhoneClick(method) {
 
 // Handle LinkedIn Click
 function handleLinkedInClick(method) {
-  const linkedinUrl = 'https://www.linkedin.com/in/dinoja-jeyamelanews';
+  const linkedinUrl = 'https://www.linkedin.com/in/dinoja-jeyamalanews';
   window.open(linkedinUrl, '_blank', 'noopener,noreferrer');
   showContactToast('Opening LinkedIn profile... 🔗', 'info');
 }

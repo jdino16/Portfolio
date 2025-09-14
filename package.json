@@ -1,7 +1,7 @@
 {
   "name": "dinoja-portfolio",
   "version": "1.0.0",
-  "description": "Dinoja Jeyamelanews Portfolio Website with Contact Form",
+  "description": "Dinoja Jeyamalanews Portfolio Website with Contact Form",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -21,6 +21,6 @@
     "nodemon": "^3.0.2"
   },
   "keywords": ["portfolio", "contact-form", "mysql", "express"],
-  "author": "Dinoja Jeyamelanews",
+  "author": "Dinoja Jeyamalanews",
   "license": "MIT"
 }
