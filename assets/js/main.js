@@ -1,4 +1,3 @@
-
 // Mobile menu toggle
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -3612,5 +3611,76 @@ function initTechnicalSkillsAnimations() {
 document.addEventListener('DOMContentLoaded', () => {
   initTechnicalSkillsAnimations();
 });
+
+// Public Messages rendering helpers
+(function initPublicMessages(){
+  const container = document.getElementById('publicMessages');
+  const list = document.getElementById('messagesList');
+  if (!container || !list) return;
+
+  function createItem({ name, message }) {
+    const item = document.createElement('div');
+    item.className = 'public-message-item';
+    item.style.cssText = 'border:1px solid rgba(192,132,252,0.25); border-radius:12px; padding:12px 14px; background:rgba(30,27,75,0.35); backdrop-filter:blur(8px);';
+    item.innerHTML = `
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; color:#c084fc; font-weight:600;">
+        <i class="ri-user-smile-line"></i>
+        <span>${name || 'Anonymous'}</span>
+      </div>
+      <div style="color:rgba(255,255,255,0.85); white-space:pre-wrap;">${(message||'').toString().slice(0,500)}</div>
+    `;
+    return item;
+  }
+
+  function showContainer() {
+    container.classList.remove('hidden');
+  }
+
+  // Expose for contact form handler
+  window.__PublicMessages = {
+    append(entry){
+      try { list.prepend(createItem(entry)); showContainer(); } catch(_){}
+    },
+    hydrate(entries){
+      try {
+        list.innerHTML = '';
+        entries.forEach(e=> list.appendChild(createItem(e)));
+        if (entries && entries.length) showContainer();
+      } catch(_){}
+    }
+  };
+
+  // Try to fetch existing (will return [] on public deploy)
+  fetch('/api/contacts', { method:'GET' })
+    .then(r=> r.ok ? r.json() : [])
+    .then(rows => {
+      // Normalize possible shapes
+      const normalized = Array.isArray(rows) ? rows.map(r => ({ name: r.name||'User', message: r.message||'' })) : [];
+      window.__PublicMessages.hydrate(normalized);
+    })
+    .catch(()=>{ /* silent; section stays hidden if none */ });
+})();
+
+// Hook into existing contact form success to append publicly
+(function hookContactForm(){
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  // Monkey-patch fetch handler by listening to custom success rendering spot
+  // We observe mutations on #formMessage to detect success and then append
+  const formMessage = document.getElementById('formMessage');
+  if (!formMessage) return;
+
+  const observer = new MutationObserver(() => {
+    const isSuccess = /Thank you!/i.test(formMessage.textContent || '');
+    if (isSuccess) {
+      const name = document.getElementById('name')?.value || 'Anonymous';
+      const message = document.getElementById('message')?.value || '';
+      if (window.__PublicMessages) {
+        window.__PublicMessages.append({ name, message });
+      }
+    }
+  });
+  observer.observe(formMessage, { childList: true, subtree: true, characterData: true });
+})();
 
 

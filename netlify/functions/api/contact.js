@@ -9,8 +9,11 @@ const dbConfig = {
   database: process.env.DB_NAME || 'portfolio_contacts'
 };
 
+// Determine if database is configured for Netlify (remote) environment
+const isDbConfigured = Boolean(process.env.DB_HOST && process.env.DB_USER && process.env.DB_NAME);
+
 // Email configuration
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER || 'dinoja21.dr@gmail.com',
@@ -46,7 +49,7 @@ exports.handler = async (event, context) => {
 
   try {
     // Parse request body
-    const { name, email, message } = JSON.parse(event.body);
+    const { name, email, message } = JSON.parse(event.body || '{}');
 
     // Validation
     if (!name || !email || !message) {
@@ -79,16 +82,20 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Connect to database
-    const connection = await mysql.createConnection(dbConfig);
-
-    // Insert contact into database
-    const [result] = await connection.execute(
-      'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
-      [name, email, message]
-    );
-
-    await connection.end();
+    // Optionally save to DB if configured
+    if (isDbConfigured) {
+      try {
+        const connection = await mysql.createConnection(dbConfig);
+        await connection.execute(
+          'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
+          [name, email, message]
+        );
+        await connection.end();
+      } catch (dbErr) {
+        console.error('DB insert failed (continuing without DB):', dbErr);
+        // Continue even if DB fails to avoid blocking user submissions on Netlify
+      }
+    }
 
     // Send email notification (optional)
     try {
@@ -102,15 +109,15 @@ exports.handler = async (event, context) => {
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Message:</strong></p>
-            <p>${message.replace(/\n/g, '<br>')}</p>
+            <p>${String(message).replace(/\n/g, '<br>')}</p>
             <hr>
             <p><em>Sent from your portfolio website</em></p>
           `
         });
       }
     } catch (emailErr) {
-      console.error('Email notification failed:', emailErr);
-      // Don't fail the request if email fails
+      console.error('Email notification failed (non-fatal):', emailErr);
+      // Do not fail the request if email fails
     }
 
     return {
@@ -127,7 +134,6 @@ exports.handler = async (event, context) => {
 
   } catch (error) {
     console.error('Error processing contact form:', error);
-    
     return {
       statusCode: 500,
       headers: {
