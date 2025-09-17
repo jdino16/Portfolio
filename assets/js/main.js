@@ -1308,6 +1308,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
     }
   } catch (error) {
     console.error('Form submission error:', error);
+    // Keep styles/animation but remove visible error text per request
     formMessage.className = 'contact-form-message-modern';
     formMessage.style.cssText = `
       background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
@@ -1315,12 +1316,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
       border: 1px solid rgba(239, 68, 68, 0.3);
       backdrop-filter: blur(10px);
     `;
-    formMessage.innerHTML = `
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <i class="ri-wifi-off-line" style="font-size: 1.2rem;"></i>
-        <span>Network error. Please check your connection and try again.</span>
-      </div>
-    `;
+    formMessage.innerHTML = ``;
     formMessage.classList.remove('hidden');
     formMessage.style.animation = 'contactMessageSlideIn 0.5s ease-out';
   } finally {
