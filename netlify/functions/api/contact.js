@@ -1,7 +1,6 @@
 let mysql;
 const nodemailer = require('nodemailer');
 
-// Database configuration
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
@@ -21,6 +20,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+
 exports.handler = async (event, context) => {
   // Handle CORS preflight requests
   if (event.httpMethod === 'OPTIONS') {
@@ -35,6 +35,7 @@ exports.handler = async (event, context) => {
     };
   }
 
+  
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return {

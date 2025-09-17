@@ -3724,3 +3724,60 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 })();
+
+// Dynamically ensure GSAP/ScrollTo/Three are loaded with fallbacks
+(function ensureVendors(){
+  function loadScript(src){
+    return new Promise((resolve, reject)=>{
+      const s = document.createElement('script');
+      s.src = src; s.async = true; s.crossOrigin = 'anonymous';
+      s.onload = ()=> resolve(true);
+      s.onerror = ()=> reject(new Error('load-failed:'+src));
+      document.head.appendChild(s);
+    });
+  }
+  const tasks = [];
+  if (typeof window.gsap === 'undefined') {
+    tasks.push(loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js').catch(()=>loadScript('https://unpkg.com/gsap@3.12.5/dist/gsap.min.js')));
+  }
+  tasks.push((async ()=>{
+    if (typeof window.gsap !== 'undefined' && !gsap.ScrollToPlugin) {
+      try { await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js'); }
+      catch(_) { try { await loadScript('https://unpkg.com/gsap@3.12.5/dist/ScrollToPlugin.min.js'); } catch(_){} }
+    }
+  })());
+  if (typeof window.THREE === 'undefined') {
+    tasks.push(loadScript('https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js').catch(()=>loadScript('https://unpkg.com/three@0.155.0/build/three.min.js')));
+  }
+  Promise.allSettled(tasks).then(()=>{
+    // no-op; subsequent code already guards if libs are missing
+  });
+})();
+
+// Safer helper for parsing JSON responses
+async function parseResponseSafe(resp){
+  try {
+    const text = await resp.text();
+    try { return { ok: resp.ok, data: JSON.parse(text) }; }
+    catch { return { ok: resp.ok, data: { success: resp.ok, message: text || '', error: text || '' } }; }
+  } catch (e) {
+    return { ok: false, data: { success:false, error:'Network error' } };
+  }
+}
+
+// Patch fetch handler: already added earlier; also use parseResponseSafe if available
+(function reinforceContactFetch(){
+  const oldFetch = window.fetch;
+  window.fetch = async function(url, opts){
+    if (typeof url === 'string' && url.replace(window.location.origin, '').startsWith('/api/contact')) {
+      try {
+        const resp = await oldFetch(url, opts);
+        const parsed = await parseResponseSafe(resp);
+        return new Response(JSON.stringify(parsed.data), { status: parsed.ok ? 200 : (resp.status||400), headers: { 'Content-Type':'application/json' } });
+      } catch (_) {
+        return new Response(JSON.stringify({ success:false, error:'Network error. Please try again later.' }), { status: 0, headers: { 'Content-Type':'application/json' } });
+      }
+    }
+    return oldFetch.apply(this, arguments);
+  };
+})();
