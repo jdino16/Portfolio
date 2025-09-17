@@ -11,6 +11,9 @@ const dbConfig = {
 // Determine if database is configured for Netlify (remote) environment
 const isDbConfigured = Boolean(process.env.DB_HOST && process.env.DB_USER && process.env.DB_NAME);
 
+// Netlify-style handler path alias support note: this function is deployed at /.netlify/functions/api/contact
+// The frontend now also tries that path explicitly if /api/contact is not routed correctly.
+
 // Email configuration
 const transporter = nodemailer.createTransport({
   service: 'gmail',

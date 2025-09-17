@@ -1209,19 +1209,31 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   });
   
   try {
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: formData.get('name'),
-        email: formData.get('email'),
-        message: formData.get('message')
-      })
+    async function postContact(body){
+      const tryPaths = ['/api/contact', '/.netlify/functions/api/contact'];
+      let lastErr;
+      for (const path of tryPaths) {
+        try {
+          const resp = await fetch(path, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          // Attempt to parse safely
+          const text = await resp.text();
+          let data; try { data = JSON.parse(text); } catch { data = { success: resp.ok, error: text }; }
+          if (resp.ok || (data && (data.success === true))) return data;
+          lastErr = data && (data.error || `HTTP ${resp.status}`);
+        } catch (e) { lastErr = e && e.message || 'Network error'; }
+      }
+      throw new Error(lastErr || 'Request failed');
+    }
+
+    const result = await postContact({
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
     });
-    
-    const result = await response.json();
     
     if (result.success) {
       // Success message with enhanced styling
