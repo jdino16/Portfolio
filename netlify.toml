@@ -15,10 +15,15 @@
   # Build environment variables
   NODE_ENV = "production"
 
-# Redirect rules for SPA routing
+# API redirects to correct function names
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  from = "/api/contact"
+  to = "/.netlify/functions/api-contact"
+  status = 200
+
+[[redirects]]
+  from = "/api/contacts"
+  to = "/.netlify/functions/api-contacts"
   status = 200
 
 # Fallback for client-side routing

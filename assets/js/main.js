@@ -1210,7 +1210,12 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   });
   
   try {
-    const response = await fetch('/api/contact', {
+    // Prefer local API in dev, fallback to Netlify Functions in production or if 404
+    const isProd = /netlify\.app$/.test(window.location.hostname) || /vercel\.app$/.test(window.location.hostname);
+    const primaryUrl = isProd ? '/api/contact' : '/api/contact';
+    const fallbackUrl = '/.netlify/functions/api-contact';
+
+    let response = await fetch(primaryUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -1221,8 +1226,27 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         message: formData.get('message')
       })
     });
+    if (!response.ok) {
+      try {
+        // Attempt fallback to Netlify Functions path
+        response = await fetch(fallbackUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message: formData.get('message')
+          })
+        });
+      } catch (_) {}
+    }
     
-    const result = await response.json();
+    let result;
+    try {
+      result = await response.json();
+    } catch (parseErr) {
+      throw new Error('Unexpected response from server. Please try again later.');
+    }
     
     if (result.success) {
       // Success message with enhanced styling

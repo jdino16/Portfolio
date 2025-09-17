@@ -1,6 +1,6 @@
 # API routes
-/api/contact /.netlify/functions/api/contact 200
-/api/contacts /.netlify/functions/api/contacts 200
+/api/contact /.netlify/functions/api-contact 200
+/api/contacts /.netlify/functions/api-contacts 200
 
 # Admin panel
 /admin /admin.html 200
