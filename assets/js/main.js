@@ -1,3 +1,4 @@
+
 // Mobile menu toggle
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -1209,31 +1210,19 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   });
   
   try {
-    async function postContact(body){
-      const tryPaths = ['/api/contact', '/.netlify/functions/api/contact'];
-      let lastErr;
-      for (const path of tryPaths) {
-        try {
-          const resp = await fetch(path, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-          });
-          // Attempt to parse safely
-          const text = await resp.text();
-          let data; try { data = JSON.parse(text); } catch { data = { success: resp.ok, error: text }; }
-          if (resp.ok || (data && (data.success === true))) return data;
-          lastErr = data && (data.error || `HTTP ${resp.status}`);
-        } catch (e) { lastErr = e && e.message || 'Network error'; }
-      }
-      throw new Error(lastErr || 'Request failed');
-    }
-
-    const result = await postContact({
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message')
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message')
+      })
     });
+    
+    const result = await response.json();
     
     if (result.success) {
       // Success message with enhanced styling
@@ -3624,172 +3613,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initTechnicalSkillsAnimations();
 });
 
-// Public Messages rendering helpers
-(function initPublicMessages(){
-  const container = document.getElementById('publicMessages');
-  const list = document.getElementById('messagesList');
-  if (!container || !list) return;
 
-  function createItem({ name, message }) {
-    const item = document.createElement('div');
-    item.className = 'public-message-item';
-    item.style.cssText = 'border:1px solid rgba(192,132,252,0.25); border-radius:12px; padding:12px 14px; background:rgba(30,27,75,0.35); backdrop-filter:blur(8px);';
-    item.innerHTML = `
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; color:#c084fc; font-weight:600;">
-        <i class="ri-user-smile-line"></i>
-        <span>${name || 'Anonymous'}</span>
-      </div>
-      <div style="color:rgba(255,255,255,0.85); white-space:pre-wrap;">${(message||'').toString().slice(0,500)}</div>
-    `;
-    return item;
-  }
-
-  function showContainer() {
-    container.classList.remove('hidden');
-  }
-
-  // Expose for contact form handler
-  window.__PublicMessages = {
-    append(entry){
-      try { list.prepend(createItem(entry)); showContainer(); } catch(_){}
-    },
-    hydrate(entries){
-      try {
-        list.innerHTML = '';
-        entries.forEach(e=> list.appendChild(createItem(e)));
-        if (entries && entries.length) showContainer();
-      } catch(_){}
-    }
-  };
-
-  // Try to fetch existing (will return [] on public deploy)
-  fetch('/api/contacts', { method:'GET' })
-    .then(r=> r.ok ? r.json() : [])
-    .then(rows => {
-      // Normalize possible shapes
-      const normalized = Array.isArray(rows) ? rows.map(r => ({ name: r.name||'User', message: r.message||'' })) : [];
-      window.__PublicMessages.hydrate(normalized);
-    })
-    .catch(()=>{ /* silent; section stays hidden if none */ });
-})();
-
-// Hook into existing contact form success to append publicly
-(function hookContactForm(){
-  const form = document.getElementById('contactForm');
-  if (!form) return;
-  // Monkey-patch fetch handler by listening to custom success rendering spot
-  // We observe mutations on #formMessage to detect success and then append
-  const formMessage = document.getElementById('formMessage');
-  if (!formMessage) return;
-
-  const observer = new MutationObserver(() => {
-    const isSuccess = /Thank you!/i.test(formMessage.textContent || '');
-    if (isSuccess) {
-      const name = document.getElementById('name')?.value || 'Anonymous';
-      const message = document.getElementById('message')?.value || '';
-      if (window.__PublicMessages) {
-        window.__PublicMessages.append({ name, message });
-      }
-    }
-  });
-  observer.observe(formMessage, { childList: true, subtree: true, characterData: true });
-})();
-
-// Hardened contact form submission: better error handling for non-JSON/HTTP errors
-(function strengthenContactSubmit(){
-  const form = document.getElementById('contactForm');
-  if (!form) return;
-
-  function parseJsonSafe(resp){
-    return resp.text().then(t=>{ try { return JSON.parse(t); } catch(_) { return { success: resp.ok, message: t || '', error: t || '' }; } });
-  }
-
-  // Replace existing listener only if ours not attached yet
-  if (!form.__hardened) {
-    form.__hardened = true;
-    const originalHandler = form.onsubmit;
-    form.addEventListener('submit', async (e) => {
-      // Let the existing listener run first (it preventsDefault and shows loaders)
-      // We only augment the fetch part via interception of window.fetch if needed.
-    }, { once: true });
-
-    // Intercept the existing fetch used by contact submission
-    const oldFetch = window.fetch;
-    window.fetch = async function(url, opts){
-      if (typeof url === 'string' && url.replace(window.location.origin, '').startsWith('/api/contact')) {
-        try {
-          const resp = await oldFetch(url, opts);
-          if (!resp.ok) {
-            const data = await parseJsonSafe(resp);
-            // Synthesize a unified error structure
-            return new Response(JSON.stringify({ success:false, error: data.error || `Request failed (${resp.status})` }), { status: resp.status, headers: { 'Content-Type':'application/json' } });
-          }
-          // Ensure JSON body even if backend returned empty
-          const data = await parseJsonSafe(resp);
-          return new Response(JSON.stringify(data), { status: 200, headers: { 'Content-Type':'application/json' } });
-        } catch (err) {
-          // Network failure
-          return new Response(JSON.stringify({ success:false, error:'Network error. Please try again in a moment.' }), { status: 0, headers: { 'Content-Type':'application/json' } });
-        }
-      }
-      return oldFetch.apply(this, arguments);
-    };
-  }
-})();
-
-// Dynamically ensure GSAP/ScrollTo/Three are loaded with fallbacks
-(function ensureVendors(){
-  function loadScript(src){
-    return new Promise((resolve, reject)=>{
-      const s = document.createElement('script');
-      s.src = src; s.async = true; s.crossOrigin = 'anonymous';
-      s.onload = ()=> resolve(true);
-      s.onerror = ()=> reject(new Error('load-failed:'+src));
-      document.head.appendChild(s);
-    });
-  }
-  const tasks = [];
-  if (typeof window.gsap === 'undefined') {
-    tasks.push(loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js').catch(()=>loadScript('https://unpkg.com/gsap@3.12.5/dist/gsap.min.js')));
-  }
-  tasks.push((async ()=>{
-    if (typeof window.gsap !== 'undefined' && !gsap.ScrollToPlugin) {
-      try { await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js'); }
-      catch(_) { try { await loadScript('https://unpkg.com/gsap@3.12.5/dist/ScrollToPlugin.min.js'); } catch(_){} }
-    }
-  })());
-  if (typeof window.THREE === 'undefined') {
-    tasks.push(loadScript('https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js').catch(()=>loadScript('https://unpkg.com/three@0.155.0/build/three.min.js')));
-  }
-  Promise.allSettled(tasks).then(()=>{
-    // no-op; subsequent code already guards if libs are missing
-  });
-})();
-
-// Safer helper for parsing JSON responses
-async function parseResponseSafe(resp){
-  try {
-    const text = await resp.text();
-    try { return { ok: resp.ok, data: JSON.parse(text) }; }
-    catch { return { ok: resp.ok, data: { success: resp.ok, message: text || '', error: text || '' } }; }
-  } catch (e) {
-    return { ok: false, data: { success:false, error:'Network error' } };
-  }
-}
-
-// Patch fetch handler: already added earlier; also use parseResponseSafe if available
-(function reinforceContactFetch(){
-  const oldFetch = window.fetch;
-  window.fetch = async function(url, opts){
-    if (typeof url === 'string' && url.replace(window.location.origin, '').startsWith('/api/contact')) {
-      try {
-        const resp = await oldFetch(url, opts);
-        const parsed = await parseResponseSafe(resp);
-        return new Response(JSON.stringify(parsed.data), { status: parsed.ok ? 200 : (resp.status||400), headers: { 'Content-Type':'application/json' } });
-      } catch (_) {
-        return new Response(JSON.stringify({ success:false, error:'Network error. Please try again later.' }), { status: 0, headers: { 'Content-Type':'application/json' } });
-      }
-    }
-    return oldFetch.apply(this, arguments);
-  };
-})();

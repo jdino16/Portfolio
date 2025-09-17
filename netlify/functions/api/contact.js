@@ -1,6 +1,7 @@
-let mysql;
+const mysql = require('mysql2/promise');
 const nodemailer = require('nodemailer');
 
+// Database configuration
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
@@ -8,21 +9,14 @@ const dbConfig = {
   database: process.env.DB_NAME || 'portfolio_contacts'
 };
 
-// Determine if database is configured for Netlify (remote) environment
-const isDbConfigured = Boolean(process.env.DB_HOST && process.env.DB_USER && process.env.DB_NAME);
-
-// Netlify-style handler path alias support note: this function is deployed at /.netlify/functions/api/contact
-// The frontend now also tries that path explicitly if /api/contact is not routed correctly.
-
 // Email configuration
-const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransporter({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER || 'dinoja21.dr@gmail.com',
     pass: process.env.EMAIL_PASS || ''
   }
 });
-
 
 exports.handler = async (event, context) => {
   // Handle CORS preflight requests
@@ -38,7 +32,6 @@ exports.handler = async (event, context) => {
     };
   }
 
-  
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return {
@@ -53,7 +46,7 @@ exports.handler = async (event, context) => {
 
   try {
     // Parse request body
-    const { name, email, message } = JSON.parse(event.body || '{}');
+    const { name, email, message } = JSON.parse(event.body);
 
     // Validation
     if (!name || !email || !message) {
@@ -86,21 +79,16 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Optionally save to DB if configured
-    if (isDbConfigured) {
-      try {
-        if (!mysql) mysql = require('mysql2/promise');
+    // Connect to database
     const connection = await mysql.createConnection(dbConfig);
-        await connection.execute(
+
+    // Insert contact into database
+    const [result] = await connection.execute(
       'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
       [name, email, message]
     );
+
     await connection.end();
-      } catch (dbErr) {
-        console.error('DB insert failed (continuing without DB):', dbErr);
-        // Continue even if DB fails to avoid blocking user submissions on Netlify
-      }
-    }
 
     // Send email notification (optional)
     try {
@@ -114,15 +102,15 @@ exports.handler = async (event, context) => {
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Message:</strong></p>
-            <p>${String(message).replace(/\n/g, '<br>')}</p>
+            <p>${message.replace(/\n/g, '<br>')}</p>
             <hr>
             <p><em>Sent from your portfolio website</em></p>
           `
         });
       }
     } catch (emailErr) {
-      console.error('Email notification failed (non-fatal):', emailErr);
-      // Do not fail the request if email fails
+      console.error('Email notification failed:', emailErr);
+      // Don't fail the request if email fails
     }
 
     return {
@@ -139,6 +127,7 @@ exports.handler = async (event, context) => {
 
   } catch (error) {
     console.error('Error processing contact form:', error);
+    
     return {
       statusCode: 500,
       headers: {

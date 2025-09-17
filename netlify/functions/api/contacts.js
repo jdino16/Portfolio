@@ -1,5 +1,4 @@
-// Defer mysql import until needed
-let mysql;
+const mysql = require('mysql2/promise');
 
 // Database configuration
 const dbConfig = {
@@ -8,9 +7,6 @@ const dbConfig = {
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'portfolio_contacts'
 };
-
-// Determine if database is configured for Netlify (remote) environment
-const isDbConfigured = Boolean(process.env.DB_HOST && process.env.DB_USER && process.env.DB_NAME);
 
 exports.handler = async (event, context) => {
   // Handle CORS preflight requests
@@ -39,20 +35,6 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // If DB is not configured (public deployment), return empty list gracefully
-    if (!isDbConfigured) {
-      return {
-        statusCode: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify([])
-      };
-    }
-
-    if (!mysql) mysql = require('mysql2/promise');
-
     // Connect to database
     const connection = await mysql.createConnection(dbConfig);
 
