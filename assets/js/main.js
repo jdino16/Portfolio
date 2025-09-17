@@ -3683,4 +3683,44 @@ document.addEventListener('DOMContentLoaded', () => {
   observer.observe(formMessage, { childList: true, subtree: true, characterData: true });
 })();
 
+// Hardened contact form submission: better error handling for non-JSON/HTTP errors
+(function strengthenContactSubmit(){
+  const form = document.getElementById('contactForm');
+  if (!form) return;
 
+  function parseJsonSafe(resp){
+    return resp.text().then(t=>{ try { return JSON.parse(t); } catch(_) { return { success: resp.ok, message: t || '', error: t || '' }; } });
+  }
+
+  // Replace existing listener only if ours not attached yet
+  if (!form.__hardened) {
+    form.__hardened = true;
+    const originalHandler = form.onsubmit;
+    form.addEventListener('submit', async (e) => {
+      // Let the existing listener run first (it preventsDefault and shows loaders)
+      // We only augment the fetch part via interception of window.fetch if needed.
+    }, { once: true });
+
+    // Intercept the existing fetch used by contact submission
+    const oldFetch = window.fetch;
+    window.fetch = async function(url, opts){
+      if (typeof url === 'string' && url.replace(window.location.origin, '').startsWith('/api/contact')) {
+        try {
+          const resp = await oldFetch(url, opts);
+          if (!resp.ok) {
+            const data = await parseJsonSafe(resp);
+            // Synthesize a unified error structure
+            return new Response(JSON.stringify({ success:false, error: data.error || `Request failed (${resp.status})` }), { status: resp.status, headers: { 'Content-Type':'application/json' } });
+          }
+          // Ensure JSON body even if backend returned empty
+          const data = await parseJsonSafe(resp);
+          return new Response(JSON.stringify(data), { status: 200, headers: { 'Content-Type':'application/json' } });
+        } catch (err) {
+          // Network failure
+          return new Response(JSON.stringify({ success:false, error:'Network error. Please try again in a moment.' }), { status: 0, headers: { 'Content-Type':'application/json' } });
+        }
+      }
+      return oldFetch.apply(this, arguments);
+    };
+  }
+})();

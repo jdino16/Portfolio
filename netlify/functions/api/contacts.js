@@ -1,4 +1,5 @@
-const mysql = require('mysql2/promise');
+// Defer mysql import until needed
+let mysql;
 
 // Database configuration
 const dbConfig = {
@@ -49,6 +50,8 @@ exports.handler = async (event, context) => {
         body: JSON.stringify([])
       };
     }
+
+    if (!mysql) mysql = require('mysql2/promise');
 
     // Connect to database
     const connection = await mysql.createConnection(dbConfig);

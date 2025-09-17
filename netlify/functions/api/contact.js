@@ -1,4 +1,4 @@
-const mysql = require('mysql2/promise');
+let mysql;
 const nodemailer = require('nodemailer');
 
 // Database configuration
@@ -85,12 +85,13 @@ exports.handler = async (event, context) => {
     // Optionally save to DB if configured
     if (isDbConfigured) {
       try {
-        const connection = await mysql.createConnection(dbConfig);
+        if (!mysql) mysql = require('mysql2/promise');
+    const connection = await mysql.createConnection(dbConfig);
         await connection.execute(
-          'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
-          [name, email, message]
-        );
-        await connection.end();
+      'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
+      [name, email, message]
+    );
+    await connection.end();
       } catch (dbErr) {
         console.error('DB insert failed (continuing without DB):', dbErr);
         // Continue even if DB fails to avoid blocking user submissions on Netlify
