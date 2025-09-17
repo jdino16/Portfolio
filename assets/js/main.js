@@ -1222,7 +1222,32 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
       })
     });
     
-    const result = await response.json();
+    // Safely parse JSON only if content-type matches and status is OK
+    const contentType = response.headers.get('content-type') || '';
+    let result;
+    if (!response.ok) {
+      // Try to extract error details
+      if (contentType.includes('application/json')) {
+        try {
+          const errJson = await response.json();
+          throw new Error(errJson.error || `Request failed (${response.status})`);
+        } catch (_) {
+          const errText = await response.text();
+          throw new Error(errText || `Request failed (${response.status})`);
+        }
+      } else {
+        const errText = await response.text();
+        throw new Error(errText || `Request failed (${response.status})`);
+      }
+    }
+
+    if (contentType.includes('application/json')) {
+      result = await response.json();
+    } else {
+      const okText = await response.text();
+      // Fallback result when server returns text
+      result = { success: true, message: okText || 'Message sent successfully.' };
+    }
     
     if (result.success) {
       // Success message with enhanced styling
