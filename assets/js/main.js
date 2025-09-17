@@ -1188,8 +1188,9 @@ function initMagneticNavigation() {
   });
 }
 
-// Enhanced Contact Form Submission
-document.getElementById('contactForm').addEventListener('submit', async (e) => {
+// Enhanced Contact Form Submission (guarded for when form is removed)
+const __contactFormEl = document.getElementById('contactForm');
+if (__contactFormEl) __contactFormEl.addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const form = e.target;
@@ -1222,32 +1223,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
       })
     });
     
-    // Safely parse JSON only if content-type matches and status is OK
-    const contentType = response.headers.get('content-type') || '';
-    let result;
-    if (!response.ok) {
-      // Try to extract error details
-      if (contentType.includes('application/json')) {
-        try {
-          const errJson = await response.json();
-          throw new Error(errJson.error || `Request failed (${response.status})`);
-        } catch (_) {
-          const errText = await response.text();
-          throw new Error(errText || `Request failed (${response.status})`);
-        }
-      } else {
-        const errText = await response.text();
-        throw new Error(errText || `Request failed (${response.status})`);
-      }
-    }
-
-    if (contentType.includes('application/json')) {
-      result = await response.json();
-    } else {
-      const okText = await response.text();
-      // Fallback result when server returns text
-      result = { success: true, message: okText || 'Message sent successfully.' };
-    }
+    const result = await response.json();
     
     if (result.success) {
       // Success message with enhanced styling
@@ -1308,7 +1284,6 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
     }
   } catch (error) {
     console.error('Form submission error:', error);
-    // Keep styles/animation but remove visible error text per request
     formMessage.className = 'contact-form-message-modern';
     formMessage.style.cssText = `
       background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
@@ -1316,7 +1291,12 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
       border: 1px solid rgba(239, 68, 68, 0.3);
       backdrop-filter: blur(10px);
     `;
-    formMessage.innerHTML = ``;
+    formMessage.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <i class="ri-wifi-off-line" style="font-size: 1.2rem;"></i>
+        <span>Network error. Please check your connection and try again.</span>
+      </div>
+    `;
     formMessage.classList.remove('hidden');
     formMessage.style.animation = 'contactMessageSlideIn 0.5s ease-out';
   } finally {

@@ -1,41 +1,22 @@
 const mysql = require('mysql2/promise');
 const nodemailer = require('nodemailer');
 
-// Database configuration (optional in serverless)
+// Database configuration
 const dbConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'portfolio_contacts'
 };
 
-// Build a flexible Nodemailer transporter
-function createEmailTransporter() {
-  // Prefer explicit SMTP settings if provided
-  if (process.env.SMTP_HOST && process.env.SMTP_PORT) {
-    return nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: process.env.SMTP_SECURE === 'true' || Number(process.env.SMTP_PORT) === 465,
-      auth: process.env.EMAIL_USER && process.env.EMAIL_PASS ? {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      } : undefined
-    });
+// Email configuration
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER || 'dinoja21.dr@gmail.com',
+    pass: process.env.EMAIL_PASS || ''
   }
-
-  // Fallback to known provider service (e.g., gmail)
-  const service = process.env.EMAIL_SERVICE || 'gmail';
-  return nodemailer.createTransport({
-    service,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  });
-}
-
-const transporter = createEmailTransporter();
+});
 
 exports.handler = async (event, context) => {
   // Handle CORS preflight requests
@@ -98,48 +79,38 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Send email first (primary requirement)
-    const emailTo = process.env.EMAIL_TO || process.env.EMAIL_USER;
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || !emailTo) {
-      throw new Error('Email transport not configured. Set EMAIL_USER, EMAIL_PASS, and optionally EMAIL_TO.');
-    }
+    // Connect to database
+    const connection = await mysql.createConnection(dbConfig);
 
-    // Verify transporter before sending (helps catch bad creds or host)
+    // Insert contact into database
+    const [result] = await connection.execute(
+      'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
+      [name, email, message]
+    );
+
+    await connection.end();
+
+    // Send email notification (optional)
     try {
-      await transporter.verify();
-    } catch (verifyErr) {
-      console.error('Email transporter verify failed:', verifyErr);
-      throw new Error('Email service not available');
-    }
-
-    await transporter.sendMail({
-      from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
-      to: emailTo,
-      subject: `New Contact Form Submission from ${name}`,
-      replyTo: email,
-      html: `
-        <h3>New Contact Form Submission</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${String(message).replace(/\n/g, '<br>')}</p>
-        <hr>
-        <p><em>Sent from your portfolio website</em></p>
-      `
-    });
-
-    // Try to store in DB, but do not block or fail if unavailable
-    try {
-      if (dbConfig.host && dbConfig.user && dbConfig.database) {
-        const connection = await mysql.createConnection(dbConfig);
-        await connection.execute(
-          'INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)',
-          [name, email, message]
-        );
-        await connection.end();
+      if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+        await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: 'dinoja21.dr@gmail.com',
+          subject: `New Contact Form Submission from ${name}`,
+          html: `
+            <h3>New Contact Form Submission</h3>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message.replace(/\n/g, '<br>')}</p>
+            <hr>
+            <p><em>Sent from your portfolio website</em></p>
+          `
+        });
       }
-    } catch (dbErr) {
-      console.error('Optional DB save failed:', dbErr);
+    } catch (emailErr) {
+      console.error('Email notification failed:', emailErr);
+      // Don't fail the request if email fails
     }
 
     return {
